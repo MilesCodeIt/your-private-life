@@ -1,6 +1,4 @@
-
 # Your ~~Private~~ Life
-
 
 ## Développement
 
@@ -30,7 +28,7 @@ yarn dev
 
 Ceci démarrera le serveur web sur le port 3000. L'édtion des fichiers des pages sera automatiquement répercutée sur le serveur.
 
-Les pages se trouvent dans le dossier `./pages` et les [routes API]((https://nextjs.org/docs/api-routes/introduction)) se trouvent dans `./pages/api`.
+Les pages se trouvent dans le dossier `./pages` et les [routes API](https://nextjs.org/docs/api-routes/introduction) se trouvent dans `./pages/api`.
 
 ## Production
 
