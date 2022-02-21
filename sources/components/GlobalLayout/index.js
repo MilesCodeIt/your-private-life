@@ -3,7 +3,13 @@ import styles from "./styles.module.scss";
 export default function GlobalLayout ({ children }) {
 
   return (
-    <main>
-    </main>
+    <div className={styles.container}>
+      <nav className={styles.taskbar}>
+
+      </nav>
+      <main>
+        {children}
+      </main>
+    </div>
   );
 }
