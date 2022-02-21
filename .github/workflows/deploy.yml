@@ -19,3 +19,4 @@ jobs:
           vercel-project-id: ${{ secrets.PROJECT_ID }}
           working-directory: ./sources
           vercel-args: "--prod"
+          github-comment: false
