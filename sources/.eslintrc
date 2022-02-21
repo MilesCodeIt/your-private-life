@@ -1,0 +1,13 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-trailing-spaces": "error",
+    "no-tabs": "error",
+    "indent": ["error", 2],
+    "semi": ["error", "always"],
+    "quotes": ["error", "double"],
+    "linebreak-style": ["error", "unix"],
+    "brace-style": ["error", "stroustrup"],
+    "comma-dangle": ["error", "never"]
+  }
+}

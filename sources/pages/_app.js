@@ -1,7 +1,11 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import GlobalLayout from "../components/GlobalLayout";
+
+export default function MyPrivateLifeApp({ Component, pageProps }) {
+  return (
+    <GlobalLayout>
+      <Component {...pageProps} />
+    </GlobalLayout>
+  );
 }
-
-export default MyApp
