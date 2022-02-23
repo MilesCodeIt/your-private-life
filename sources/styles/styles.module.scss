@@ -1,17 +1,21 @@
 .container {
   width: 100vw;
   height: 100vh;
-
   background: #000000;
 }
 
 .taskbar {
   display: flex;
   align-items: center;
-
   width: 100%;
   height: 26px;
-
   background: #0000ff;
 }
 
+.title {
+  color: #fff;
+}
+
+.test {
+  background: #f00;
+}
