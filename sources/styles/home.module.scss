@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
 
+  padding: 2em;
+
   flex-wrap: wrap;
 }
 
@@ -12,15 +14,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  font-size: .8em;
-  
-  margin: 4px;
-  
-  height: 86px;
-  width: 76px;
-  
   flex-direction: column;
+  gap: 0.75em;
+
+  height: 112px;
+  width: 112px;
   
+  font-size: .85em;
+  text-align: center;
+  
+  border-radius: 12px;
+  padding: 0.75em;
+  margin: .75em;
+  
+  background: rgba($color: #000000, $alpha: .1);
   transition: .2s;
+  
+  &:hover {
+    background: rgba($color: #000000, $alpha: .2);
+    border-radius: 16px;
+  }
 }
