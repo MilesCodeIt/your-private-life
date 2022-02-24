@@ -1,0 +1,13 @@
+.avatar {
+  border-radius: 50%;
+  background: linear-gradient(132deg, #FF4242 2%, #390E0E 90%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & span {
+    user-select: none;
+    color: var(--color-white);
+  }
+}

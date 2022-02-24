@@ -8,10 +8,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "ky": "^0.29.0",
+    "mongoose": "^6.2.3",
     "next": "12.1.0",
+    "nookies": "^2.5.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "sass": "^1.49.8"
+    "react-icons": "^4.3.1",
+    "react-password-strength-bar": "^0.4.0",
+    "sass": "^1.49.8",
+    "zustand": "^3.7.0"
   },
   "devDependencies": {
     "eslint": "8.9.0",
