@@ -6,6 +6,9 @@
 
   &.active path {
     fill: #fff;
+    animation: fill_animation 2s ease forwards;
+    stroke-dashoffset: 300;
+    stroke-dasharray: 300;
   }
 
   &:not(.active) path {
@@ -13,7 +16,6 @@
     stroke-dashoffset: 300;
     stroke-dasharray: 300;
   }
-
 }
 
 @keyframes stroke_animation {
@@ -30,14 +32,18 @@
   }
 }
 
-// @keyframes fill_animation {
-//   0% {
-//     fill: black;
-//   }
-//   95% {
-//     fill: black;
-//   }
-//   100% {
-//     fill: white;
-//   }
-// }
+@keyframes fill_animation {
+  0% {
+    fill: #000;
+  }
+
+  50% {
+    stroke-dashoffset: 0;
+    fill: #fff;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    fill: #fff;
+  }
+}

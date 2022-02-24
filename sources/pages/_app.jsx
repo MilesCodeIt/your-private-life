@@ -34,7 +34,9 @@ export default function MyPrivateLifeApp({ Component, pageProps }) {
         };
       }
       finally {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
       }
     }
 

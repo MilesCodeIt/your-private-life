@@ -32,7 +32,21 @@
 
   z-index: 100;
 
-  &.finished {
+  &.hidden {
     display: none;
+  }
+
+  &.fade {
+    animation: fade_out 1s ease-in-out forwards;
+  }
+}
+
+@keyframes fade_out {
+  0% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
   }
 }
