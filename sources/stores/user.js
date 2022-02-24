@@ -1,6 +1,10 @@
 import create from "zustand";
 
 export const useUserStore = create(set => ({
-  username: "",
-  setUsername: username => set(state => ({ ...state, username }))
+  userDetails: {
+    email: "",
+    id: "",
+    username: ""
+  },
+  setUserDetails: details => set(state => ({ userDetails: details }))
 }));

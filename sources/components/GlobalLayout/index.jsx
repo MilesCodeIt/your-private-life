@@ -1,11 +1,22 @@
 import styles from "./styles.module.scss";
+import { Fragment } from "react";
 
-export default function GlobalLayout ({ children }) {
+import LoaderStartLogo from "@/components/LoaderStartLogo";
+
+export default function GlobalLayout ({ children, isLoading = true }) {
+
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        {children}
-      </main>
-    </div>
+    <Fragment>
+      <div className={`${styles.loader} ${!isLoading ? styles.finished : ""}`}>
+        <LoaderStartLogo finished={!isLoading} />
+      </div>
+
+      <div className={styles.container}>
+        <main className={styles.main}>
+          {children}
+        </main>
+      </div>
+    </Fragment>
+
   );
 }
