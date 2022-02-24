@@ -1,7 +1,9 @@
 import styles from "@/styles/login.module.scss";
 
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
+import ky, { HTTPError } from "ky";
 
 import { AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
@@ -10,7 +12,8 @@ import UserAvatar from "@/components/UserAvatar";
 import AuthUserSelectCard from "@/components/AuthUserSelectCard";
 
 export default function Login () {
-  const [username, setUsername] = useState("");
+  const router = useRouter();
+  const [uid, setUid] = useState("");
   const [password, setPassword] = useState("");
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
@@ -18,7 +21,25 @@ export default function Login () {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.info("submitted", username, password);
+    try {
+      await ky.post("/api/user/login", {
+        json: {
+          uid,
+          password
+        }
+      }).json();
+
+      router.push("/");
+    }
+    catch (error) {
+      if (error instanceof HTTPError) {
+        const body = await error.response.json();
+        console.error(body.message);
+      }
+      else {
+        console.error(error);
+      }
+    }
   };
 
   return (
@@ -46,9 +67,9 @@ export default function Login () {
 
           <input
             type="text"
-            placeholder="Identifiant"
-            onChange={({ target }) => setUsername(target.value)}
-            value={username}
+            placeholder="Identifiant ou E-Mail"
+            onChange={({ target }) => setUid(target.value)}
+            value={uid}
           />
         </div>
 

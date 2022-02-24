@@ -1,3 +1,10 @@
+import connectDatabase from "@/utils/api/connectDatabase";
+import User from "@/models/User";
+
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import nookies from "nookies";
+
 /**
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
@@ -9,10 +16,10 @@ export default async function handler (req, res) {
   });
 
   /** @type {string} */
-  const email = req.body.email;
-  if (!email) return res.status(400).json({
+  const uid = req.body.uid;
+  if (!uid) return res.status(400).json({
     success: false,
-    message: "L'adresse e-mail est manquante"
+    message: "L'adresse e-mail ou l'identifiant est manquant"
   });
 
   /** @type {string} */
@@ -22,8 +29,57 @@ export default async function handler (req, res) {
     message: "Le mot de passe est manquant"
   });
 
+  // Connexion à la base de données.
+  await connectDatabase();
+
+  // Récupération de l'utilisateur.
+  const user = await User.findOne({
+    $or: [
+      { username: { $regex: new RegExp(uid, "i") } },
+      { email: { $regex: new RegExp(uid, "i") } }
+    ]
+  });
+
+  // Vérfiication de l'existence de l'utilisateur.
+  if (!user) return res.status(401).json({
+    success: false,
+    message: "L'utilisateur n'existe pas"
+  });
+
+  // Vérification du mot de passe.
+  const verified = await bcrypt.compare(password, user.password);
+  if (!verified) return res.status(401).json({
+    success: false,
+    message: "Le mot de passe est incorrecte"
+  });
+
+  // Payload que contiendra le token.
+  const payload = {
+    data: {
+      id: user._id,
+      username: user.username,
+      email: user.email
+    }
+  };
+
+  // Le token doit expirer après une semaine.
+  const expiresIn = 60 * 60 * 24 * 7;
+
+  // Création du token.
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn
+  });
+
+  // Sauvegarde du token dans les cookies.
+  nookies.set({ res }, "token", token, {
+    sameSite: "strict",
+    maxAge: expiresIn,
+    httpOnly: true,
+    path: "/"
+  });
+
   res.status(200).json({
     success: true,
-    username
+    payload
   });
 }

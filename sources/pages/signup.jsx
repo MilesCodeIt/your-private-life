@@ -2,6 +2,8 @@ import styles from "@/styles/signup.module.scss";
 
 import { useState } from "react";
 import Link from "next/link";
+import ky, { HTTPError } from "ky";
+import { useRouter } from "next/router";
 
 import { AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
@@ -12,6 +14,7 @@ import AuthUserSelectCard from "@/components/AuthUserSelectCard";
 import PasswordStrengthBar from "react-password-strength-bar";
 
 export default function Signup () {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -21,6 +24,28 @@ export default function Signup () {
   /** @param {import("react").FormEvent} event */
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    try {
+      await ky.post("/api/user/signup", {
+        json: {
+          username,
+          password,
+          email
+        }
+      }).json();
+
+      router.push("/login?created_account=true");
+    }
+    catch (error) {
+      if (error instanceof HTTPError) {
+        const body = await error.response.json();
+        console.error(body.message);
+      }
+      else {
+        console.error(error);
+      }
+    }
+
 
     console.info("submitted", username, password, email);
   };
