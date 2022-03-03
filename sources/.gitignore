@@ -21,7 +21,8 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # Variables d'environnement
-.env.local
+.env*
+!.env.example
 
 # Vercel
 .vercel

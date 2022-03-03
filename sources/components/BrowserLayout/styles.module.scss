@@ -1,0 +1,97 @@
+.webBrowserContainer {
+  height: 100vh;
+  width: 100vw;
+
+  background-color: #fff;
+}
+
+.applicationBarMenu {
+  height: 42px;
+  width: 100%;
+
+  padding: 0 16px;
+  background-color: #000;
+
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &_closeIcon {
+    padding: 4px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background-color: rgba($color: #fff, $alpha: .4);
+    }
+  }
+}
+
+.webBrowserAddressBar {
+  height: 42px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 16px;
+  gap: 8px;
+
+  background-color: rgb(27, 27, 27);
+
+  &_leftIcons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4px;
+
+    width: fit-content;
+
+    li {
+      padding: 4px;
+      border-radius: 8px;
+
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background-color: rgba($color: #fff, $alpha: .4);
+      }
+    }
+  }
+
+  &_searchContainer {
+    width: 100%;
+
+    background: rgba($color: #fff, $alpha: .4);
+    border-radius: 4px;
+    
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 16px;
+    gap: 8px;
+    
+    & input {
+      color: #fff;
+      padding: 2px 4px;
+      border: none;
+      outline: none;
+      width: 100%;
+      background: none;
+    }
+  }
+}
+
+.mainContentContainer {
+  padding: 1.25em;
+  color: #000;
+}
