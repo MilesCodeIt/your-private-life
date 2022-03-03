@@ -1,0 +1,14 @@
+.windowContainer {
+  display: block;
+  position: absolute;
+  z-index: 999;
+
+  left: calc(50vw - (150px / 2));
+  top: calc(50vh - (100px / 2));
+
+  height: 100px;
+  width: 150px;
+
+  background: #fff;
+  color: #000;
+}

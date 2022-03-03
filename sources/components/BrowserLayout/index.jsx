@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { useState } from "react";
-
 import styles from "./styles.module.scss";
 import { CgClose, CgBrowser } from "react-icons/cg";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
@@ -30,7 +28,6 @@ export default function LevelsIndex ({ children, urlValue }) {
           <li><HiArrowLeft /></li>
           <li><HiArrowRight /></li>
         </ul>
-
 
         <div className={styles.webBrowserAddressBar_searchContainer}>
           <AiFillLock />
