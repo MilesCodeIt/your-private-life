@@ -65,9 +65,9 @@ export default function Home () {
               </span>
             </a>
           )
-        )))}
+          )))}
       </div>
-      
+
       {showAbout && <AboutWindow />}
     </Fragment>
   );
