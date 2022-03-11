@@ -68,7 +68,9 @@ export default function Home () {
           )))}
       </div>
 
-      {showAbout && <AboutWindow />}
+      {showAbout && <AboutWindow
+        closeWindow={() => setShowAbout(false)}
+      />}
     </Fragment>
   );
 }
