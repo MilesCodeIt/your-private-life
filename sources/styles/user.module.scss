@@ -1,0 +1,19 @@
+.container {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.window {
+  background: #ffffff49;
+
+  border: solid 1px #ffffffb6;
+  backdrop-filter: blur(4px);
+
+
+  padding: 16px;
+}

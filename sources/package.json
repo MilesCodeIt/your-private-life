@@ -19,6 +19,7 @@
     "react-icons": "^4.3.1",
     "react-password-strength-bar": "^0.4.0",
     "sass": "^1.49.8",
+    "swr": "^1.2.2",
     "zustand": "^3.7.0"
   },
   "devDependencies": {

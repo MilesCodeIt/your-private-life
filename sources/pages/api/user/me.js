@@ -12,18 +12,18 @@ export default function handler (req, res) {
   });
 
   const cookies = nookies.get({ req });
-  if (!cookies.token) return res.status(401).json({
+  if (!cookies.token) return res.status(403).json({
     success: false,
-    message: "Token inexistant"
+    message: "Utilisateur déconnecté."
   });
 
   const payload = jwt.verify(cookies.token, process.env.JWT_SECRET);
   if (!payload) {
     nookies.destroy({ res }, "token");
 
-    return res.status(401).json({
+    return res.status(403).json({
       success: false,
-      message: "Token invalide"
+      message: "Token de connexion invalide, déconnecté."
     });
   }
 

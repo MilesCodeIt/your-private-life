@@ -1,52 +1,41 @@
 import "@/styles/globals.css";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import ky, { HTTPError } from "ky";
+import Router from "next/router";
+import useUser from "@/utils/web/useUser";
 
 // Layouts.
 import GlobalLayout from "@/components/GlobalLayout";
 
-// Stores.
-import { useUserStore } from "@/stores/user";
-
 export default function MyPrivateLifeApp({ Component, pageProps }) {
-  const router = useRouter();
-  const setUserDetails = useUserStore(state => state.setUserDetails);
+  const pathname = typeof window !== "undefined" ? Router.pathname : undefined;
+  const { user, loggedOut, loading } = useUser();
+  const [isReady, setReady] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(true);
 
+  console.log(user, loggedOut, loading);
+
+  // if logged in, redirect to the dashboard
   useEffect(() => {
-    async function checkAuth () {
-      try {
-        const response = await ky.get("/api/user/me").json();
-        setUserDetails(response.data);
-      }
-      catch (error) {
-        if (error instanceof HTTPError) {
-          // L'utilisateur n'est pas connecté.
-          if (error.response.status === 401) {
-            // On ne redirige pas sur ces pages.
-            if (router.pathname !== "/login" && router.pathname !== "/signup") {
-              router.push("/login");
-            }
-          }
-        };
-      }
-      finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 2000);
+    if (!pathname) return;
+
+    console.info("Running user authentication check.");
+    if (user && !loggedOut) {
+      if (pathname !== "/login" && pathname !== "/signup") {
+        console.info("Redirecting to '/login' due to not authentified user.");
+        Router.replace("/login");
       }
     }
 
-    checkAuth();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!isReady) {
+      console.info("App is ready !");
+      setReady(true);
+    }
+  }, [isReady, pathname, user, loggedOut]);
 
   return (
     <GlobalLayout
-      isLoading={isLoading}
+      isLoading={isReady}
     >
       <Component {...pageProps} />
     </GlobalLayout>
