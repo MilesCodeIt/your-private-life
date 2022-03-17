@@ -1,9 +1,10 @@
 import styles from "@/styles/login.module.scss";
 
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import ky, { HTTPError } from "ky";
+import useUser from "@/utils/web/useUser";
 
 import { AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
@@ -12,35 +13,59 @@ import UserAvatar from "@/components/UserAvatar";
 import AuthUserSelectCard from "@/components/AuthUserSelectCard";
 
 export default function Login () {
-  const router = useRouter();
+  const { mutate } = useUser();
   const [uid, setUid] = useState("");
   const [password, setPassword] = useState("");
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
+
+  const [infoMessage, setInfoMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   /** @param {import("react").FormEvent} event */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Réinitialisation du message d'erreur.
+    setErrorMessage(null);
+    setLoading(true);
+
     try {
-      await ky.post("/api/user/login", {
+      const data = await ky.post("/api/user/login", {
         json: {
           uid,
           password
         }
       }).json();
 
-      router.push("/");
+      const user_data = data.user;
+      setLoading(false);
+
+      console.info("Mis à jour des données de l'état de l'utilisateur.", user_data);
+      mutate(user_data);
     }
     catch (error) {
+      setLoading(false);
+
       if (error instanceof HTTPError) {
         const body = await error.response.json();
-        console.error(body.message);
+        setErrorMessage(body.message);
       }
       else {
+        setErrorMessage("Une erreur côté serveur est survenue !");
         console.error(error);
       }
     }
   };
+
+  useEffect(() => {
+    const query = router.query;
+    if (query.created_account) {
+      setInfoMessage("Compte crée avec succès ! Connectez-vous avec.");
+    }
+  }, [router.query]);
 
   return (
     <main
@@ -55,6 +80,12 @@ export default function Login () {
       >
         Connexion
       </h2>
+
+      {infoMessage &&
+        <span>
+          {infoMessage}
+        </span>
+      }
 
       <form
         onSubmit={handleSubmit}
@@ -103,8 +134,15 @@ export default function Login () {
         <button
           type="submit"
         >
-          Connexion
+          {loading ? "..." : "Se connecter"}
         </button>
+        {errorMessage &&
+          <span
+            className={styles.errorMessage}
+          >
+            {errorMessage}
+          </span>
+        }
       </form>
 
       <nav

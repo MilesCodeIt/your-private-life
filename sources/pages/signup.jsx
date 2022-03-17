@@ -1,7 +1,7 @@
 import styles from "@/styles/signup.module.scss";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 import ky, { HTTPError } from "ky";
 import { useRouter } from "next/router";
 
@@ -21,9 +21,16 @@ export default function Signup () {
   const [passwordScore, setPasswordScore] = useState(0);
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   /** @param {import("react").FormEvent} event */
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Réinitialisation du message d'erreur.
+    setErrorMessage(null);
+    setLoading(true);
 
     try {
       await ky.post("/api/user/signup", {
@@ -34,20 +41,21 @@ export default function Signup () {
         }
       }).json();
 
-      router.push("/login?created_account=true");
+      setLoading(false);
+      router.push("/login?created_account=1");
     }
     catch (error) {
+      setLoading(false);
+
       if (error instanceof HTTPError) {
         const body = await error.response.json();
-        console.error(body.message);
+        setErrorMessage(body.message);
       }
       else {
+        setErrorMessage("Une erreur côté serveur est survenue !");
         console.error(error);
       }
     }
-
-
-    console.info("submitted", username, password, email);
   };
 
   return (

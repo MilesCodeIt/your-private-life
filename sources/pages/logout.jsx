@@ -1,15 +1,25 @@
 import { useEffect } from "react";
 import ky, { HTTPError } from "ky";
-import { useRouter } from "next/router";
+import useUser from "@/utils/web/useUser";
 
 export default function Logout () {
-  const router = useRouter();
+  const { mutate } = useUser();
 
+  /**
+   * On déconnecte l'utilisateur et on met à jour
+   * l'état dans le stockage local.
+   * Pour finir, on redirige l'utilisateur
+   * vers la page de connexion.
+   */
   useEffect(() => {
-    async function logout () {
+    (async () => {
       try {
+        console.info("Déconnexion de l'utilisateur");
+
+        // Suppression du cookie.
         await ky.post("/api/user/logout").json();
-        router.push("/login");
+        // Mis à jour de l'état local.
+        mutate();
       }
       catch (error) {
         if (error instanceof HTTPError) {
@@ -20,11 +30,8 @@ export default function Logout () {
           console.error(error);
         }
       }
-    }
-
-    logout();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    })();
+  }, [mutate]);
 
   return (
     <div>
