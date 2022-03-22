@@ -68,12 +68,8 @@ export default function Login () {
   }, [router.query]);
 
   return (
-    <main
-      className={styles.container}
-    >
-      <UserAvatar
-        firstLetter="C"
-      />
+    <main className={styles.container}>
+      <UserAvatar firstLetter="C" />
 
       <h2
         className={styles.formTitle}

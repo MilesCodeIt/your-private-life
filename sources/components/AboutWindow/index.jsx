@@ -64,6 +64,16 @@ export default function AboutWindow ({ closeWindow }) {
         <p>
           Prévention sur les risques liés aux cyberattaques.
         </p>
+
+        <div
+          style={{
+            background: "#000",
+            height: "64px",
+            width: "48px"
+          }}
+        >
+
+        </div>
       </div>
     </div>
   );

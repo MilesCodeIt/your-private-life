@@ -14,6 +14,15 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+
+  /**
+   * Chaque key est l'ID d'un niveau.
+   * Chaque valeur de keys est boolean (true si le niveau est validé).
+   */
+  levels: {
+    type: Map,
+    of: Boolean
   }
 });
 
