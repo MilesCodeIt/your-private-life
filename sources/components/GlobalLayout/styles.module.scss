@@ -4,7 +4,7 @@
   width: 100vw;
   height: 100vh;
 
-  background: url("/windoesnt-logo.svg"), linear-gradient(132deg, #FF4242 2%, #390E0E 90%);
+  background: url("/windoesnt-logo.svg"), var(--color-primary-400);
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
   background-size: 35%, cover;
