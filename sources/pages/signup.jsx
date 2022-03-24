@@ -17,7 +17,6 @@ export default function Signup () {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
   const [passwordScore, setPasswordScore] = useState(0);
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
@@ -36,8 +35,7 @@ export default function Signup () {
       await ky.post("/api/user/signup", {
         json: {
           username,
-          password,
-          email
+          password
         }
       }).json();
 
@@ -83,22 +81,9 @@ export default function Signup () {
 
           <input
             type="text"
-            placeholder="Identifiant"
+            placeholder="Nom d'utilisateur"
             onChange={({ target }) => setUsername(target.value)}
             value={username}
-          />
-        </div>
-
-        <div>
-          <AiOutlineUser
-            size={28}
-          />
-
-          <input
-            type="email"
-            placeholder="Adresse E-mail"
-            onChange={({ target }) => setEmail(target.value)}
-            value={email}
           />
         </div>
 
@@ -156,10 +141,19 @@ export default function Signup () {
         />
 
         <button
+          disabled={loading}
           type="submit"
         >
-          S&apos;inscrire
+          {loading ? "Chargement..." : "S'inscrire"}
         </button>
+
+        {errorMessage &&
+          <span
+            className={styles.errorMessage}
+          >
+            {errorMessage}
+          </span>
+        }
       </form>
 
       <nav

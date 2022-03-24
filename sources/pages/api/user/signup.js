@@ -13,8 +13,8 @@ export default async function handler (req, res) {
     message: "Méthode inexistante"
   });
 
-  const { email, password, username } = req.body;
-  if (!email || !password || !username) return res.status(400).json({
+  const { password, username } = req.body;
+  if (!password || !username) return res.status(400).json({
     success: false,
     message: "Un champ est manquant"
   });
@@ -24,22 +24,18 @@ export default async function handler (req, res) {
 
   // Vérification de si l'utilisateur existe déjà.
   const existUser = await User.findOne({
-    $or: [
-      { username },
-      { email }
-    ]
+    username: { $regex: new RegExp(username, "i") }
   });
 
   if (existUser) return res.status(401).json({
     success: false,
-    message: `${existUser.email === email ? "E-mail" : "Nom d'utilisateur"} est déjà utilisé.`
+    message: "Ce nom d'utilisateur est déjà utilisé."
   });
 
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const createdUser = await User.create({
     username,
-    email,
     password: hashedPassword
   });
 

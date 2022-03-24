@@ -14,7 +14,7 @@ import AuthUserSelectCard from "@/components/AuthUserSelectCard";
 
 export default function Login () {
   const { mutate } = useUser();
-  const [uid, setUid] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
@@ -35,7 +35,7 @@ export default function Login () {
     try {
       const data = await ky.post("/api/user/login", {
         json: {
-          uid,
+          username,
           password
         }
       }).json();
@@ -94,9 +94,9 @@ export default function Login () {
 
           <input
             type="text"
-            placeholder="Identifiant ou E-Mail"
-            onChange={({ target }) => setUid(target.value)}
-            value={uid}
+            placeholder="Nom d'utilisateur"
+            onChange={({ target }) => setUsername(target.value)}
+            value={username}
           />
         </div>
 
@@ -129,9 +129,11 @@ export default function Login () {
 
         <button
           type="submit"
+          disabled={loading}
         >
           {loading ? "..." : "Se connecter"}
         </button>
+
         {errorMessage &&
           <span
             className={styles.errorMessage}

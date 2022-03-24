@@ -16,10 +16,10 @@ export default async function handler (req, res) {
   });
 
   /** @type {string} */
-  const uid = req.body.uid;
-  if (!uid) return res.status(400).json({
+  const username = req.body.username;
+  if (!username) return res.status(400).json({
     success: false,
-    message: "L'adresse e-mail ou l'identifiant est manquant"
+    message: "L'identifiant est manquant"
   });
 
   /** @type {string} */
@@ -34,10 +34,7 @@ export default async function handler (req, res) {
 
   // Récupération de l'utilisateur.
   const user = await User.findOne({
-    $or: [
-      { username: { $regex: new RegExp(uid, "i") } },
-      { email: { $regex: new RegExp(uid, "i") } }
-    ]
+    username: { $regex: new RegExp(username, "i") }
   });
 
   // Vérfiication de l'existence de l'utilisateur.
@@ -57,8 +54,7 @@ export default async function handler (req, res) {
   const payload = {
     data: {
       id: user._id,
-      username: user.username,
-      email: user.email
+      username: user.username
     }
   };
 
