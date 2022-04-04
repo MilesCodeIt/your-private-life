@@ -23,3 +23,4 @@ L'équipe est composée de trois personnes :
 
 - Lycée Turgot (87)
 - Trophées NSI
+-\_Zenyth\_ (https://discord.gg/wuMvTWw57F)
