@@ -11,6 +11,7 @@ encore plus de simulations et de niveaux.
 L'équipe est composée de trois personnes :
 - [Mikkel "Vexcited" ALMONTE--RINGAUD](https://github.com/Vexcited): Développeur Web ;
 - [Jules "Invertime" CHEVALLET](https://github.com/Invertime): Développeur Web ;
+- Mélissa LASPOUGEAS: Beta-testeuse ;
 - [Yamini BOURHANE](https://instagram.com/jellycat.pnj): Illustratrice
 
 ## Structure du dépôt
@@ -22,4 +23,3 @@ L'équipe est composée de trois personnes :
 
 - Lycée Turgot (87)
 - Trophées NSI
-
