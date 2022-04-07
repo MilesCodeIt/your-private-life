@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+
   password: {
     type: String,
     required: true
@@ -17,7 +18,8 @@ const UserSchema = new mongoose.Schema({
    */
   levels: {
     type: Map,
-    of: Boolean
+    of: Boolean,
+    required: true
   }
 });
 

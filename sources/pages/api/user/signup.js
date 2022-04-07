@@ -36,7 +36,10 @@ export default async function handler (req, res) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const createdUser = await User.create({
     username,
-    password: hashedPassword
+    password: hashedPassword,
+    levels: {
+      introduction: false
+    }
   });
 
   res.status(200).json({
