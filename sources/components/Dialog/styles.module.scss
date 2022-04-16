@@ -1,0 +1,32 @@
+.backdrop {
+  position: fixed;
+  top: 0; left: 0;
+
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  background: #fff;
+  padding: 1.5em;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  flex-direction: column;
+  gap: .5em;
+}

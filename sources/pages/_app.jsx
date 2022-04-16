@@ -28,7 +28,7 @@ export default function MyPrivateLifeApp({ Component, pageProps }) {
     if (!pathname) return;
 
     // Utilisateur non connecté.
-    if (!user) {
+    if (!user && !loading) {
       // Pas sur la page de connexion ni d'inscription.
       if (pathname !== "/login" && pathname !== "/signup") {
         // Debug
@@ -43,7 +43,7 @@ export default function MyPrivateLifeApp({ Component, pageProps }) {
         Router.replace("/");
       }
     }
-  }, [user, pathname]);
+  }, [user, pathname, loading]);
 
   return (
     <GlobalLayout isLoading={loading}>
