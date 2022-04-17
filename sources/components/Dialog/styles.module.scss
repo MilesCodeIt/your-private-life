@@ -7,19 +7,23 @@
   z-index: 1;
   
   background: rgba(0, 0, 0, 0.5);
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
 }
 
 .container {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
   background: #fff;
+  
   padding: 1.5em;
+  // margin: 1.25em;
+
+  max-width: 600px;
+  margin-inline: auto;
 }
 
 .buttons {

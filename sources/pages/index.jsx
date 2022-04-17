@@ -14,16 +14,22 @@ import AboutWindow from "@/components/AboutWindow";
 
 export default function Home () {
   const [showAbout, setShowAbout] = useState(false);
-  const { user } = useUser();
   const { levels } = useUserLevels();
 
-  const applications = [{
-    name: "Déconnexion",
-    link: "/logout",
-    icon: <BiLogOut size={38} />
-  }];
+  const applications = [
+    {
+      name: "À propos",
+      click: () => setShowAbout(true),
+      icon: <AiOutlineInfoCircle size={38} />
+    },
+    {
+      name: "Déconnexion",
+      link: "/logout",
+      icon: <BiLogOut size={38} />
+    }
+  ];
 
-  (levels?.introduction) && applications.push(
+  (levels?.introduction) ? applications.unshift(
     {
       name: "Navigateur Web",
       link: "/levels",
@@ -33,11 +39,12 @@ export default function Home () {
       name: "Mon Compte",
       link: "/user",
       icon: <RiUserSettingsLine size={38} />
-    },
+    }
+  ) : applications.unshift(
     {
-      name: "À propos",
-      click: () => setShowAbout(true),
-      icon: <AiOutlineInfoCircle size={38} />
+      name: "Mes mails",
+      link: "/levels/introduction",
+      icon: <CgBrowser size={38} />
     }
   );
 
