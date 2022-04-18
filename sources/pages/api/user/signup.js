@@ -32,14 +32,15 @@ export default async function handler (req, res) {
     message: "Ce nom d'utilisateur est déjà utilisé."
   });
 
+  /** @type {Map<string, boolean>} */
+  const levels = new Map();
+  levels.set("introduction", false);
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const createdUser = await User.create({
     username,
     password: hashedPassword,
-    levels: {
-      introduction: false
-    }
+    levels
   });
 
   res.status(200).json({

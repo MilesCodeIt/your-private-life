@@ -6,21 +6,21 @@
 
 Ce projet est notre participation au concours Trophées NSI de 2022.
 Nous prévoyons, pourquoi pas, de continuer ce projet dans l'avenir en y ajoutant
-encore plus de simulations et de niveaux.
+encore plus de niveaux.
 
-L'équipe est composée de trois personnes :
+L'équipe est composée de quatres personnes :
 - [Mikkel "Vexcited" ALMONTE--RINGAUD](https://github.com/Vexcited): Développeur Web ;
 - [Jules "Invertime" CHEVALLET](https://github.com/Invertime): Développeur Web ;
-- Mélissa LASPOUGEAS: Beta-testeuse ;
-- [Yamini BOURHANE](https://instagram.com/jellycat.pnj): Illustratrice
+- Mélissa LASPOUGEAS: Scénariste et bêta-testeuse ;
+- [Yamini BOURHANE](https://instagram.com/jellycat.pnj): Illustratrice et designeuse
 
 ## Structure du dépôt
 
-- [Documentation](./doc) - En cours de construction...
+- [Documentation](./doc/index.md)
 - [Code-source](./sources)
 
 ## Remerciements
 
-- Lycée Turgot (87)
-- Trophées NSI
--\_Zenyth\_ (https://discord.gg/wuMvTWw57F)
+- [Lycée Turgot, à Limoges](https://www.lyc-turgot.ac-limoges.fr/) ;
+- [Trophées NSI](https://trophees-nsi.fr/) ;
+- \_Zenyth\_

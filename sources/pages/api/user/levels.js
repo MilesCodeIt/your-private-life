@@ -31,12 +31,10 @@ export default async function handler (req, res) {
     });
   }
 
-  // Connexion à la base de données.
-  await connectDatabase();
-
-  // Récupération de l'utilisateur.
-  const user = await User.findOne({
-    id: payload.data.id
+  const user = await User.findById(payload.data.id);
+  if (!user) return res.status(403).json({
+    success: false,
+    message: "Utilisateur introuvable."
   });
 
   // Renvoie de l'état des niveaux effectués par l'utilisateur.

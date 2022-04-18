@@ -8,7 +8,6 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { useState, Fragment } from "react";
 import Link from "next/link";
 
-import useUser from "@/utils/web/useUser";
 import useUserLevels from "@/utils/web/useUserLevels";
 import AboutWindow from "@/components/AboutWindow";
 
