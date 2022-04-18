@@ -1,6 +1,6 @@
 import "@/styles/globals.scss";
 
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import Router from "next/router";
 
 // État de l'utilisateur.
@@ -8,6 +8,7 @@ import useUser from "@/utils/web/useUser";
 
 // Layout général.
 import GlobalLayout from "@/components/GlobalLayout";
+import Dialog from "@/components/Dialog";
 
 export default function MyPrivateLifeApp({ Component, pageProps }) {
   const pathname = typeof window !== "undefined" ? Router.pathname : undefined;
@@ -46,8 +47,12 @@ export default function MyPrivateLifeApp({ Component, pageProps }) {
   }, [user, pathname, loading]);
 
   return (
-    <GlobalLayout isLoading={loading}>
-      <Component {...pageProps} />
-    </GlobalLayout>
+    <Fragment>
+      <Dialog />
+
+      <GlobalLayout isLoading={loading}>
+        <Component {...pageProps} />
+      </GlobalLayout>
+    </Fragment>
   );
 }

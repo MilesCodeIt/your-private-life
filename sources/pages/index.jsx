@@ -31,7 +31,7 @@ export default function Home () {
 
   (levels?.introduction) ? applications.unshift(
     {
-      name: "Navigateur Web",
+      name: "Niveaux",
       link: "/levels",
       icon: <CgBrowser size={38} />
     },

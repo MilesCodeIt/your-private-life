@@ -1,10 +1,25 @@
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import { Fragment } from "react";
+import create from "zustand";
 
 import styles from "./styles.module.scss";
 
+export const useDialog = create((set, get) => ({
+  isOpen: false,
+  content: <Fragment></Fragment>,
+  open: (content) => set(() => ({ content, isOpen: true })),
+  closeDialog: () => {
+    set(() => ({ isOpen: false }));
+    get().closeFunction && get().closeFunction();
+  },
+  closeFunction: null,
+  setCloseFunction: (closeFunction) => set(() => ({ closeFunction }))
+}));
+
 export default function Dialog ({ children, show, onClose }) {
   const [isBrowser, setIsBrowser] = useState(false);
+  const dialog = useDialog();
 
   useEffect(() => {
     setIsBrowser(true);
@@ -17,11 +32,11 @@ export default function Dialog ({ children, show, onClose }) {
         {/** Potentiel waifu narratrice */}
 
         <div className={styles.content}>
-          {children}
+          {dialog.content}
         </div>
         <div className={styles.buttons}>
           <button
-            onClick={onClose}
+            onClick={dialog.closeDialog}
           >
             Fermer
           </button>
@@ -32,7 +47,7 @@ export default function Dialog ({ children, show, onClose }) {
 
   if (!isBrowser) return null;
   return ReactDOM.createPortal(
-    show ? <Container /> : null,
+    dialog.isOpen ? <Container /> : null,
     document.getElementById("dialog-root")
   );
 }

@@ -9,10 +9,11 @@ import User from "@/models/User";
  * @param {import("next").NextApiResponse} res
  */
 export default async function handler (req, res) {
-  if (req.method !== "GET") return res.status(404).json({
-    success: false,
-    message: "Method not found"
-  });
+  if (!(req.method === "GET" || req.method === "POST"))
+    return res.status(404).json({
+      success: false,
+      message: "Method not found"
+    });
 
   const cookies = nookies.get({ req });
   if (!cookies.token) return res.status(403).json({
@@ -38,8 +39,28 @@ export default async function handler (req, res) {
     id: payload.data.id
   });
 
-  res.status(200).json({
-    success: true,
-    levels: user.levels
-  });
+  // Renvoie de l'état des niveaux effectués par l'utilisateur.
+  if (req.method === "GET") {
+    res.status(200).json({
+      success: true,
+      levels: user.levels
+    });
+  }
+
+  // Mise à jour de l'état d'avancement d'un niveau.
+  else if (req.method === "POST") {
+    const { level_id, finished } = req.body;
+    if (!level_id || !("finished" in req.body)) return res.status(400).json({
+      success: false,
+      message: "Requête invalide."
+    });
+
+    // Mise à jour de l'état d'avancement du niveau.
+    user.levels.set(level_id, finished);
+    await user.save();
+
+    res.status(200).json({
+      success: true
+    });
+  }
 }

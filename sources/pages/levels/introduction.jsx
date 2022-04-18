@@ -1,9 +1,10 @@
 import BrowserLayout from "@/components/BrowserLayout";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import Head from "next/head";
-import Dialog from "@/components/Dialog";
+import { useDialog } from "@/components/Dialog";
+import { updateLevelState } from "@/utils/web/useUserLevels";
 
 import styles from "@/styles/levels/introduction.module.scss";
 
@@ -27,7 +28,12 @@ const mails = [
     title: "Une importante notification",
     content: <div>
       <h2></h2>
-    </div>
+    </div>,
+
+    realChoice: "lu",
+    explanations: <p>
+      Ce message n&apos;a rien de suspect et l&apos;adresse e-mail de l&apos;expéditeur correspond bien.
+    </p>
   },
   {
     author: "Jelly",
@@ -94,20 +100,52 @@ export default function IntroductionLevel () {
   const navigate = useRouter().push;
 
   const [selectedMail, setSelectedMail] = useState(mails[0]);
-  const [dialogShow, setDialogShow] = useState(true);
+  const dialog = useDialog();
 
-  // const []
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
-  /**
-   * Contient le JSX des dialogues.
-   * Le messgae de bienvenue est ici utilisé en état par défaut.
-   */
-  const [dialogText, setDialogText] = useState(
-    <p>
-      Bienvenue ! Vous venez de recevoir plusieurs mails et vous devez les trier. <br />
-      <b>Analysez-les</b> bien, avant de cliquer sur un lien ou une image, par exemple.
-    </p>
-  );
+  // Dialogue affiché au chargement de la page.
+  useEffect(() => {
+    /**
+     * Contient le JSX des dialogues.
+     * Le messgae de bienvenue est ici utilisé en état par défaut.
+     */
+    dialog.open(
+      <p>
+        Bienvenue ! Vous venez de recevoir plusieurs mails et vous devez les trier. <br />
+        <b>Analysez-les</b> bien, avant de cliquer sur un lien ou une image, par exemple.
+      </p>
+    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Handler des dialogues.
+  // Si c'est le dernier mail, on affiche les résultats.
+  // Si les résultats on déjà été affichés, on redirige à la page d'accueil.
+  useEffect(() => {
+    dialog.setCloseFunction(() => {
+      if (selectedMail === "end") {
+        showEndDialog();
+        return;
+      }
+
+      if (selectedMail === "navigate") {
+        updateLevelState("introduction", true)
+          .then((result) => {
+            if (result.success) {
+              console.info("[introduction] Avancement de l'état du niveau sauvegardé !");
+              navigate("/?from=introduction&finished=true");
+            }
+            else {
+              console.error("[introduction] Erreur lors de la sauvegarde de l'état du niveau !");
+            }
+          });
+
+        return;
+      }
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedMail]);
 
   const MailItem = ({ mail }) => (
     <div className={`${styles.mailItem} ${mail === selectedMail ? styles.mailItem_selected : ""}`}>
@@ -117,42 +155,50 @@ export default function IntroductionLevel () {
   );
 
   /**
+   * Function qui permet de passer au prochain mail et de
+   * savoir si on doit afficher le dialogue de fin ou non.
    * @param {"lu" | "spam"} userChoice - Contient le choix de l'utilisateur.
    */
   const nextMail = (userChoice) => {
     const current_mail_index = mails.findIndex(mail => mail === selectedMail);
     const next_mail_index = current_mail_index + 1;
 
-    // Affichage du dialogue.
+    // On vérifie si le choix de l'utilisateur est correct ou non.
     const choiceIsCorrect = userChoice === selectedMail.realChoice;
-    setDialogText(
+    setCorrectAnswers(choiceIsCorrect ? correctAnswers + 1 : correctAnswers);
+
+    // Affichage du dialogue.
+    dialog.open(
       <Fragment>
         <p>{choiceIsCorrect ? "Bravo !" : "Incorrect."}</p>
         {selectedMail.explanations}
       </Fragment>
     );
 
-    setDialogShow(true);
-
+    // Si on a fini, on affiche le dialogue de fin.
     const isLastMail = next_mail_index === mails.length;
     if (isLastMail) {
       setSelectedMail("end");
       return;
     }
 
+    // Sinon on passe au mail suivant.
     const next_mail_data = mails[next_mail_index];
     setSelectedMail(next_mail_data);
   };
 
   const showEndDialog = () => {
     setSelectedMail("navigate");
-    setDialogText(
-      <p>
-        Bravo ! Vous avez terminé le niveau.
-      </p>
+    dialog.open(
+      <div>
+        <p>
+          Bravo ! Vous avez terminé le niveau avec {correctAnswers} réponse(s) correcte(s).
+        </p>
+        <p>
+          Vous voulez rejouer ce niveau ? Aucun problème ! Cliquez sur l&apos;icône &quot;Niveaux&quot; dans l&apos;accueil.
+        </p>
+      </div>
     );
-
-    setDialogShow(true);
   };
 
   return (
@@ -160,27 +206,6 @@ export default function IntroductionLevel () {
       <Head>
         <title>Mes mails - Your Private Life</title>
       </Head>
-
-      <Dialog
-        show={dialogShow}
-        onClose={() => {
-          if (selectedMail === "end") {
-            setDialogShow(false);
-            showEndDialog();
-            return;
-          }
-
-          if (selectedMail === "navigate") {
-            setDialogShow(false);
-            navigate("/");
-            return;
-          }
-
-          setDialogShow(false);
-        }}
-      >
-        {dialogText}
-      </Dialog>
 
       <BrowserLayout
         urlValue="https://my.randmail.com/inbox"
