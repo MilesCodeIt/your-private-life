@@ -41,7 +41,7 @@ export default function LevelsIndex () {
   return (
     <BrowserLayout
       browserTitle="Niveaux"
-      urlValue={`://levels${searchLevel ? `?search=${searchLevel}` : ""}`}
+      urlValue={`://levels${searchLevel ? `?search=${encodeURIComponent(searchLevel)}` : ""}`}
     >
       <div className={styles.header}>
         <input

@@ -39,7 +39,7 @@ export default function Home () {
     }
   ];
 
-  (levels?.introduction) ? applications.unshift(
+  (levels.introduction) ? applications.unshift(
     {
       name: "Niveaux",
       link: "/levels",
@@ -60,8 +60,7 @@ export default function Home () {
 
   return (
     <Fragment>
-
-      {!levels?.introduction && (
+      {!levels.introduction && (
         <Link href="/levels/introduction">
           <a className={styles.introduction_mail}>
             <h3>Nouveau mail</h3>
@@ -73,7 +72,10 @@ export default function Home () {
       <div className={styles.container}>
         {applications.map((application) => (
           (application.link ? (
-            <Link href={application.link} key={application.name}>
+            <Link
+              key={application.name}
+              href={application.link}
+            >
               <a
                 className={styles.item}
               >
