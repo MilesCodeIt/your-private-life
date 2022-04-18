@@ -5,15 +5,14 @@ import { CgClose, CgBrowser } from "react-icons/cg";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import { AiFillLock } from "react-icons/ai";
 
-export default function LevelsIndex ({ children, urlValue }) {
-
+export default function LevelsIndex ({ children, urlValue, browserTitle }) {
   return (
     <div className={styles.webBrowserContainer}>
       <div
         className={styles.applicationBarMenu}
       >
         <CgBrowser size={20} />
-        <p>Navigateur Web</p>
+        <p>{browserTitle ?? "Navigateur Web"}</p>
         <Link href="/">
           <a className={styles.applicationBarMenu_closeIcon}>
             <CgClose size={20} />

@@ -8,10 +8,13 @@ export default function useUserLevels () {
 
   const loading = !data && !error;
 
+  /** @type {Map<string, boolean>} */
+  const levels = data?.levels || new Map();
+
   return {
     loading,
     mutate,
-    levels: data?.levels
+    levels
   };
 }
 

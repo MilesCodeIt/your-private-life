@@ -14,7 +14,17 @@ import AboutWindow from "@/components/AboutWindow";
 
 export default function Home () {
   const [showAbout, setShowAbout] = useState(false);
-  const { levels } = useUserLevels();
+  const { levels, loading } = useUserLevels();
+
+  /**
+   * Affichage d'un loader si les données
+   * de l'utilisateur sont toujours en chargement.
+   */
+  if (loading) return (
+    <p>
+      Chargement...
+    </p>
+  );
 
   const applications = [
     {

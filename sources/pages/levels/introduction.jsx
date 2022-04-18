@@ -209,6 +209,7 @@ export default function IntroductionLevel () {
 
       <BrowserLayout
         urlValue="https://my.randmail.com/inbox"
+        browserTitle={`Mes mails - ${selectedMail.title}`}
       >
         <div className={styles.container}>
           <div className={styles.mailContainer}>
