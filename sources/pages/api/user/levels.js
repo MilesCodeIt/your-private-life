@@ -31,6 +31,7 @@ export default async function handler (req, res) {
     });
   }
 
+  await connectDatabase();
   const user = await User.findById(payload.data.id);
   if (!user) return res.status(403).json({
     success: false,

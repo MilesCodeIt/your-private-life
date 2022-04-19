@@ -10,35 +10,38 @@ import styles from "@/styles/levels/introduction.module.scss";
 
 const mails = [
   {
-    author: "Colissimo",
-    title: "Votre colis vient d'être expédié !",
-    content: <div>
-      <h2>Commande - #NVRGNNAGVYUP1</h2>
+    author: "Colissito <coli.ssito24e@318735tdmail.fr",
+    title: "Votre colis est en route",
+    content: <div className={styles.mails_1}>
+      <h2>Commande - #NVRGNNAGVYUP1</h2> <br />
 
-      <p>Nous venons d&apos;envoyer votre colis. Il devrait arriver dans 2, ou 3 jours.</p>
+      <p className={styles.mails_1__status}>
+        Statut: en attente au centre de distribution.
+      </p>
+
+      <p>
+        <b>Paiment manquant de 2 euros.</b> <br />
+        Votre colis sera envoyé lorsque le montant sera payé.
+      </p>
+
+      <button className={styles.mails_1__button}>
+        Livraison payante
+      </button>
     </div>,
 
     realChoice: "spam",
     explanations: <p>
-      Ce genre de message est récurrent car...
+      Ce genre de message est récurrent.
+      Dans ces mails, on vous fait croire qu&apos;un colis
+      doit vous parvenir mais cela uniquement si vous payez
+      un certain montant. De plus, l&apos;adresse e-mail de l&apos;auteur
+      semble suspect et peut être un spam.
     </p>
   },
   {
-    author: "Banque Postale",
-    title: "Une importante notification",
-    content: <div>
-      <h2></h2>
-    </div>,
-
-    realChoice: "lu",
-    explanations: <p>
-      Ce message n&apos;a rien de suspect et l&apos;adresse e-mail de l&apos;expéditeur correspond bien.
-    </p>
-  },
-  {
-    author: "Jelly",
+    author: "Jelly <jelly@randmail.com>",
     title: "Tuto des noeuds",
-    content: <div>
+    content: <div className={styles.mails_2}>
       <p>
         Salut,
         <br />Du coup je t&apos;envoie la vidéo parce qu&apos;elle est trop grosse pour passer par Insta ou Discord 💀🤌
@@ -49,50 +52,95 @@ const mails = [
 
         <br /><br />Votre très estimée, <i>The Great Jelly</i>.
       </p>
-    </div>
+    </div>,
+
+    realChoice: "lu",
+    explanations: <p>
+      Cet e-mail n&apos;a rien de suspect et
+      semblerait provenir d&apos;un de vos amis.
+    </p>
   },
   {
-    author: "spotify.bot1.rest25E3f1@hak.ru",
+    author: "Soundable <soundable.bot1.rest25E3f1@hak.ru>",
     title: "TRÈS URGENT !!",
-    content: <div>
+    content: <div className={styles.mails_3}>
       <h2>Bonjour, veuillez lire ce message avec la plus haute attention.</h2>
 
       <p>
         Nous avons trouvé une erreur dans les informations
         de votre compte Soundable.
-      </p>
+      </p> <br />
 
       <p>
-        Pour réctifier cette erreur, veuillez cliquer sur le bouton ci-dessous.
-      </p>
+        Pour réctifier cette erreur, <b>veuillez cliquer sur le bouton ci-dessous</b>.
+      </p> <br /> <br />
 
-      <a >
+      <a className={styles.mails_3__button}>
         Accéder à mon compte
       </a>
-    </div>
+    </div>,
+
+    realChoice: "spam",
+    explanations: <p>
+      Cet e-mail est un spam et essaye de vous faire croire
+      qu&apos;une erreur s&apos;est produite sur un de vos compte et vous demande
+      de vous y connecter pour réparer l&apos;erreur.
+      En réalité, c&apos;est complétement faux et ce mail essaye
+      sûrement de récupérer vos identifiants de connexion.
+    </p>
   },
   {
-    author: "Twitch",
+    author: "Twitch <insights@twitch.tv>",
     title: "Votre récapitulatif 2021 #TwitchRecap",
-    content: <div>
+    content: <div className={styles.mails_4}>
       <h2>2021 #TwitchRecap</h2>
 
       <p>Messages envoyés: <b>727</b></p>
-      <p>Top des chaînes les plus regardées: sardoche ; locklear ; squeezie</p>
       <p>Points de chaînes gagnés: <b>133,337</b></p>
-    </div>
+
+      <p>Top des chaînes les plus regardées</p>
+      <ul>
+        <li>Sardouche</li>
+        <li>Unlocklear</li>
+        <li>SqueezIt</li>
+      </ul>
+
+      <button>Voir le reste du récapitulatif</button>
+    </div>,
+
+    realChoice: "lu",
+    explanations: <p>
+      Ce mail provient d&apos;un réseau auquel vous êtes inscris.
+      Il n&apos;est donc en aucun cas un spam, de plus l&apos;adresse e-mail
+      de l&apos;expéditeur semble correcte.
+    </p>
   },
   {
-    author: "Inconnu",
+    author: "Inconnu <pierre.durif@randmail.com",
     title: "Mon héritage",
-    content: <div>
+    content: <div className={styles.mails_5}>
+      <div className={styles.mails_spam}>
+        Ce message semble être un spam.
+      </div>
+
       <p>Bonjour, je suis Pierre.</p>
-      <p>j&apos;aimerais vous faire part de mon héritage car je sais bientôt mourrir</p>
+      <p>J&apos;aimerais vous faire part de mon héritage car je sais bientôt mourrir</p>
       <p>Je ne vous connais pas, mais votre adresse mail m&apos;a inspiré confiance</p>
-      <p>Vous avez de la chance, je possède 80 milliards d&apos;euros, mais y a évidemment un peu de paperasse.</p>
+      <p>Vous avez de la chance, je possède <b>80 milliards d&apos;euros</b>, mais y a évidemment un peu de paperasse.</p>
       <p>Mais vous inquiétez pas, tout se trouve sur le lien suivant: <a href="#" onClick={(e) => e.preventDefault()}>http://sitedeconfiance.com/arnaque.php</a></p>
+      <br />
       <p>Merci mon cher, et portez vous bien.</p>
-    </div>
+    </div>,
+
+    realChoice: "spam",
+    explanations: <p>
+      Bien que l&apos;adresse e-mail a l&apos;air sans risque, un
+      message de notre boîte mail nous informe du risque potentiel.
+      Cela veut dire que cette adresse e-mail a des antécédents
+      de spam et plusieurs personnes l&apos;ont signalés.
+      Ainsi, il vaudrait mieux éviter de garder ce mail et de cliquer
+      sur les liens qu&apos;il contient.
+    </p>
   }
 ];
 
@@ -160,12 +208,12 @@ export default function IntroductionLevel () {
    * @param {"lu" | "spam"} userChoice - Contient le choix de l'utilisateur.
    */
   const nextMail = (userChoice) => {
-    const current_mail_index = mails.findIndex(mail => mail === selectedMail);
-    const next_mail_index = current_mail_index + 1;
-
     // On vérifie si le choix de l'utilisateur est correct ou non.
     const choiceIsCorrect = userChoice === selectedMail.realChoice;
     setCorrectAnswers(choiceIsCorrect ? correctAnswers + 1 : correctAnswers);
+
+    // On supprime le mail de la liste.
+    mails.shift();
 
     // Affichage du dialogue.
     dialog.open(
@@ -176,14 +224,14 @@ export default function IntroductionLevel () {
     );
 
     // Si on a fini, on affiche le dialogue de fin.
-    const isLastMail = next_mail_index === mails.length;
+    const isLastMail = mails.length <= 0;
     if (isLastMail) {
       setSelectedMail("end");
       return;
     }
 
     // Sinon on passe au mail suivant.
-    const next_mail_data = mails[next_mail_index];
+    const next_mail_data = mails[0];
     setSelectedMail(next_mail_data);
   };
 
@@ -209,7 +257,7 @@ export default function IntroductionLevel () {
 
       <BrowserLayout
         urlValue="https://my.randmail.com/inbox"
-        browserTitle={`Mes mails - ${selectedMail.title}`}
+        browserTitle={`Mes mails ${selectedMail.title ? `- ${selectedMail.title}` : ""}`}
       >
         <div className={styles.container}>
           <div className={styles.mailContainer}>
