@@ -10,6 +10,11 @@ const raw_levels = [
     name: "Introduction",
     description: "Tutoriel d'introduction à Your Private Life. Analysez vos mails et triez les. Attention, les spams ne sont pas triés !",
     id: "introduction"
+  },
+  {
+    name: "Ami de longue date",
+    description: "Êtes-vous sûr de savoir à qui vous parlez sur les réseaux ?",
+    id: "ami-de-longue-date"
   }
 ];
 
