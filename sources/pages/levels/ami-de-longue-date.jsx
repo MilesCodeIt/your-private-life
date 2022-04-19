@@ -29,6 +29,15 @@ export default function AmiDeLongueDateLevel () {
     }
   ]);
 
+  if (!user || !user.username) return (
+    <Fragment>
+      <Head>
+        <title>Chargement... - Your Private Life</title>
+      </Head>
+      <p>Chargement...</p>
+    </Fragment>
+  );
+
   return (
     <Fragment>
       <Head>
@@ -47,7 +56,7 @@ export default function AmiDeLongueDateLevel () {
 
         <div className={styles.windowContent}>
           <div className={styles.friendList}>
-            <p>mes amis lmao de {user.username}</p>
+            <p>Liste des amis de {user.username}</p>
           </div>
           <div className={styles.messagesContainer}>
             <header className={styles.messagesContainer__header}>
