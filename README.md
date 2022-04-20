@@ -16,8 +16,8 @@ L'équipe est composée de quatres personnes :
 
 ## Structure du dépôt
 
-- [Documentation](./doc/index.md)
 - [Code-source](./sources)
+- [Documentation](./doc/README.md)
 
 ## Remerciements
 
