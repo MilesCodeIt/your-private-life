@@ -18,7 +18,7 @@ On récupère les données de l'utilisateur actuel en effectuant la requête HTT
 
 Si l'utilisateur est correctement authentifié, on récupère aussi sa progression dans les niveaux grâce à la requête HTTP `GET /api/user/levels`.
 
-La progression d'un niveau est booléen. S'il est terminé, sa valeur est `true`, sinon `false`.
+[La progression d'un niveau est booléen](./niveaux.md). S'il est terminé, sa valeur est `true`, sinon `false`.
 
 Une fois que tout ça a été chargé, on modifie l'état du chargement en `false` ce qui a pour effet d'arrêter l'animation de chargement de l'application.
 
