@@ -12,7 +12,7 @@ que contient Your ~~Private~~ Life.
 Dans la partie haute - header - de la page, on trouve deux élements.
 
 - Une barre de recherche qui permet de faciliter la navigation en recherchant un niveau en particulier grâce à son titre, son ID ou sa description.
-- Un bouton "Suggérer un niveau". Ce bouton permettra aux utilisateurs, dans le futur, de suggérer un niveau à l'équipe de développement et de, pourquoi pas, l'intégrer dans Your ~~Private~~ Life.
+- Un bouton "Suggérer un niveau". Ce bouton permettra aux utilisateurs, **dans le futur** car sa fonctionnalité n'a pas encore été développé, de suggérer un niveau à l'équipe de développement et de, pourquoi pas, l'intégrer dans Your ~~Private~~ Life.
 
 Lorsque vous cliquez sur un niveau, vous y serez redirigé (`/levels/:level_id`).
 
