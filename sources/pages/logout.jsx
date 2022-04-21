@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import ky, { HTTPError } from "ky";
 import useUser from "@/utils/web/useUser";
 
+import styles from "@/styles/logout.module.scss";
+
 export default function Logout () {
   const { mutate } = useUser();
 
@@ -34,8 +36,8 @@ export default function Logout () {
   }, [mutate]);
 
   return (
-    <div>
-      Déconnexion en cours...
+    <div className={styles.container}>
+      <h4>Déconnexion en cours...</h4>
     </div>
   );
 }

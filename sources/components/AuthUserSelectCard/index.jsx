@@ -14,10 +14,6 @@ const AuthUserSelectCard = forwardRef(({
       className={`${styles.card_container} ${isSelected ? styles.active : ""}`}
       href={href} onClick={onClick} ref={ref}
     >
-      <UserAvatar
-        size={50}
-        firstLetter={children[0].toUpperCase()}
-      />
       <span>
         {children}
       </span>
