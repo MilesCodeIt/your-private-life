@@ -1,8 +1,9 @@
 import styles from "@/styles/login.module.scss";
 
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 import ky, { HTTPError } from "ky";
 import useUser from "@/utils/web/useUser";
 
@@ -68,103 +69,108 @@ export default function Login () {
   }, [router.query]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.form_container}>
-        <UserAvatar firstLetter="C" />
+    <Fragment>
+      <NextSeo
+        title="Connexion"
+      />
+      <div className={styles.container}>
+        <div className={styles.form_container}>
+          <UserAvatar firstLetter="C" />
 
-        <h2
-          className={styles.formTitle}
-        >
+          <h2
+            className={styles.formTitle}
+          >
         Connexion
-        </h2>
+          </h2>
 
-        {infoMessage &&
+          {infoMessage &&
         <span>
           {infoMessage}
         </span>
-        }
+          }
 
-        <form
-          onSubmit={handleSubmit}
-          className={styles.form}
-        >
-          <div>
-            <AiOutlineUser
-              size={28}
-            />
-
-            <input
-              type="text"
-              placeholder="Nom d'utilisateur"
-              onChange={({ target }) => setUsername(target.value)}
-              value={username}
-            />
-          </div>
-
-          <div>
-            <BiLockAlt
-              size={28}
-            />
-
-            <input
-              type={passwordIsVisible ? "text" : "password"}
-              placeholder="Mot de passe"
-              onChange={({ target }) => setPassword(target.value)}
-              value={password}
-            />
-
-            <a
-              className={styles.passwordVisibilityIcon}
-              onClick={() => setPasswordIsVisible(!passwordIsVisible)}
-            >
-              {passwordIsVisible
-                ? <AiOutlineEye
-                  size={28}
-                />
-                : <AiOutlineEyeInvisible
-                  size={28}
-                />
-              }
-            </a>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
+          <form
+            onSubmit={handleSubmit}
+            className={styles.form}
           >
-            {loading ? "..." : "Se connecter"}
-          </button>
+            <div>
+              <AiOutlineUser
+                size={28}
+              />
 
-          {errorMessage &&
+              <input
+                type="text"
+                placeholder="Nom d'utilisateur"
+                onChange={({ target }) => setUsername(target.value)}
+                value={username}
+              />
+            </div>
+
+            <div>
+              <BiLockAlt
+                size={28}
+              />
+
+              <input
+                type={passwordIsVisible ? "text" : "password"}
+                placeholder="Mot de passe"
+                onChange={({ target }) => setPassword(target.value)}
+                value={password}
+              />
+
+              <a
+                className={styles.passwordVisibilityIcon}
+                onClick={() => setPasswordIsVisible(!passwordIsVisible)}
+              >
+                {passwordIsVisible
+                  ? <AiOutlineEye
+                    size={28}
+                  />
+                  : <AiOutlineEyeInvisible
+                    size={28}
+                  />
+                }
+              </a>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "..." : "Se connecter"}
+            </button>
+
+            {errorMessage &&
           <span
             className={styles.errorMessage}
           >
             {errorMessage}
           </span>
-          }
-        </form>
+            }
+          </form>
 
-        <nav
-          className={styles.navbar}
-        >
-          <ul>
-            <li>
-              <AuthUserSelectCard
-                isSelected={true}
-              >
+          <nav
+            className={styles.navbar}
+          >
+            <ul>
+              <li>
+                <AuthUserSelectCard
+                  isSelected={true}
+                >
               Connexion
-              </AuthUserSelectCard>
-            </li>
-            <li>
-              <Link href="/signup" passHref>
-                <AuthUserSelectCard>
-                Inscription
                 </AuthUserSelectCard>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+              </li>
+              <li>
+                <Link href="/signup" passHref>
+                  <AuthUserSelectCard>
+                Inscription
+                  </AuthUserSelectCard>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 }

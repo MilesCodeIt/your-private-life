@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, Fragment } from "react";
+import { NextSeo } from "next-seo";
 
 import BrowserLayout from "@/components/BrowserLayout";
 
@@ -44,33 +45,38 @@ export default function LevelsIndex () {
   };
 
   return (
-    <BrowserLayout
-      browserTitle="Niveaux"
-      urlValue={`://levels${searchLevel ? `?search=${encodeURIComponent(searchLevel)}` : ""}`}
-    >
-      <div className={styles.header}>
-        <input
-          type="text"
-          placeholder="Rechercher un niveau"
-          value={searchLevel}
-          onChange={handleSearch}
-        />
+    <Fragment>
+      <NextSeo
+        title="Niveaux"
+      />
+      <BrowserLayout
+        browserTitle="Niveaux"
+        urlValue={`://levels${searchLevel ? `?search=${encodeURIComponent(searchLevel)}` : ""}`}
+      >
+        <div className={styles.header}>
+          <input
+            type="text"
+            placeholder="Rechercher un niveau"
+            value={searchLevel}
+            onChange={handleSearch}
+          />
 
-        <button>
+          <button>
           Suggérer un niveau
-        </button>
-      </div>
+          </button>
+        </div>
 
-      <div className={styles.levels}>
-        {levels.map(level => (
-          <Link key={level.id} href={`/levels/${level.id}`} passHref>
-            <a className={styles.levels_item}>
-              <h3>{level.name}</h3>
-              <span>{level.description}</span>
-            </a>
-          </Link>
-        ))}
-      </div>
-    </BrowserLayout>
+        <div className={styles.levels}>
+          {levels.map(level => (
+            <Link key={level.id} href={`/levels/${level.id}`} passHref>
+              <a className={styles.levels_item}>
+                <h3>{level.name}</h3>
+                <span>{level.description}</span>
+              </a>
+            </Link>
+          ))}
+        </div>
+      </BrowserLayout>
+    </Fragment>
   );
 }

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 
 // Stores.
 import useUser from "@/utils/web/useUser";
@@ -36,34 +37,45 @@ export default function User () {
   }, [levels]);
 
   if (!user || !levels) return (
-    <p>
-      Chargement des données...
-    </p>
+    <Fragment>
+      <NextSeo
+        title="Chargement..."
+      />
+      <p>
+        Chargement des données...
+      </p>
+    </Fragment>
   );
 
   return (
-    <div className={styles.container}>
-      <Link href="/" passHref>
-        <a className={styles.goBackButton}>
+    <Fragment>
+      <NextSeo
+        title="Mon compte"
+      />
+
+      <div className={styles.container}>
+        <Link href="/" passHref>
+          <a className={styles.goBackButton}>
           Revenir à la page d&apos;accueil
-        </a>
-      </Link>
+          </a>
+        </Link>
 
-      <div className={styles.window}>
-        <h1>Bievenue sur votre compte, {user.username} !</h1>
+        <div className={styles.window}>
+          <h1>Bievenue sur votre compte, {user.username} !</h1>
 
-        <p>Vous avez terminé {parsedLevels.finished.length} niveau(x).</p>
+          <p>Vous avez terminé {parsedLevels.finished.length} niveau(x).</p>
+        </div>
+
+        <div className={styles.window}>
+          <h2>Niveaux terminé(s)</h2>
+
+          {parsedLevels.finished.map(level => (
+            <div key={level.id}>
+              <p>- {level.id}</p>
+            </div>
+          ))}
+        </div>
       </div>
-
-      <div className={styles.window}>
-        <h2>Niveaux terminé(s)</h2>
-
-        {parsedLevels.finished.map(level => (
-          <div key={level.id}>
-            <p>- {level.id}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+    </Fragment>
   );
 }

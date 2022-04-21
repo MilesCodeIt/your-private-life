@@ -6,6 +6,10 @@ import Router from "next/router";
 // État de l'utilisateur.
 import useUser from "@/utils/web/useUser";
 
+// SEO Configuration
+import { DefaultSeo } from "next-seo";
+import SEO from "../next-seo.config";
+
 // Layout général.
 import GlobalLayout from "@/components/GlobalLayout";
 import Dialog from "@/components/Dialog";
@@ -48,6 +52,7 @@ export default function MyPrivateLifeApp({ Component, pageProps }) {
 
   return (
     <Fragment>
+      <DefaultSeo {...SEO} />
       <Dialog />
 
       <GlobalLayout isLoading={loading}>

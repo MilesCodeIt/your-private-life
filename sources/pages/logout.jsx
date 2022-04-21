@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
+import { NextSeo } from "next-seo";
 import ky, { HTTPError } from "ky";
 import useUser from "@/utils/web/useUser";
 
@@ -36,8 +37,13 @@ export default function Logout () {
   }, [mutate]);
 
   return (
-    <div className={styles.container}>
-      <h4>Déconnexion en cours...</h4>
-    </div>
+    <Fragment>
+      <NextSeo
+        title="Déconnexion..."
+      />
+      <div className={styles.container}>
+        <h4>Déconnexion en cours...</h4>
+      </div>
+    </Fragment>
   );
 }

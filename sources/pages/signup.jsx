@@ -1,9 +1,10 @@
 import styles from "@/styles/signup.module.scss";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import ky, { HTTPError } from "ky";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 import { AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiLockAlt } from "react-icons/bi";
@@ -57,125 +58,130 @@ export default function Signup () {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.form_container}>
-        <UserAvatar
-          firstLetter="I"
-        />
-
-        <h2
-          className={styles.formTitle}
-        >
-        Inscription
-        </h2>
-
-        <form
-          onSubmit={handleSubmit}
-          className={styles.form}
-        >
-          <div>
-            <AiOutlineUser
-              size={28}
-            />
-
-            <input
-              type="text"
-              placeholder="Nom d'utilisateur"
-              onChange={({ target }) => setUsername(target.value)}
-              value={username}
-            />
-          </div>
-
-          <div
-            style={{
-              borderBottom: !password
-                ? "none"
-                : `6px solid ${
-                // Très bas
-                  passwordScore === 0 ? "#FF4242"
-                  // Bas
-                    : passwordScore === 1 ? "#F58840"
-                    // Moyen
-                      : passwordScore === 2 ? "#FFD32D"
-                      // Haut
-                        : "#2EB086"
-                }`
-            }}
-          >
-            <BiLockAlt
-              size={28}
-            />
-
-            <input
-              type={passwordIsVisible ? "text" : "password"}
-              placeholder="Mot de passe"
-              onChange={({ target }) => setPassword(target.value)}
-              value={password}
-            />
-
-            <a
-              className={styles.passwordVisibilityIcon}
-              onClick={() => setPasswordIsVisible(!passwordIsVisible)}
-            >
-              {passwordIsVisible
-                ? <AiOutlineEye
-                  size={28}
-                />
-                : <AiOutlineEyeInvisible
-                  size={28}
-                />
-              }
-            </a>
-          </div>
-
-          <PasswordStrengthBar
-            style={{
-              display: "none"
-            }}
-            minLength={8}
-            password={password}
-            onChangeScore={(score) => {
-              setPasswordScore(score);
-            }}
+    <Fragment>
+      <NextSeo
+        title="Inscription"
+      />
+      <div className={styles.container}>
+        <div className={styles.form_container}>
+          <UserAvatar
+            firstLetter="I"
           />
 
-          <button
-            disabled={loading}
-            type="submit"
+          <h2
+            className={styles.formTitle}
           >
-            {loading ? "Chargement..." : "S'inscrire"}
-          </button>
+        Inscription
+          </h2>
 
-          {errorMessage &&
+          <form
+            onSubmit={handleSubmit}
+            className={styles.form}
+          >
+            <div>
+              <AiOutlineUser
+                size={28}
+              />
+
+              <input
+                type="text"
+                placeholder="Nom d'utilisateur"
+                onChange={({ target }) => setUsername(target.value)}
+                value={username}
+              />
+            </div>
+
+            <div
+              style={{
+                borderBottom: !password
+                  ? "none"
+                  : `6px solid ${
+                    // Très bas
+                    passwordScore === 0 ? "#FF4242"
+                    // Bas
+                      : passwordScore === 1 ? "#F58840"
+                      // Moyen
+                        : passwordScore === 2 ? "#FFD32D"
+                        // Haut
+                          : "#2EB086"
+                  }`
+              }}
+            >
+              <BiLockAlt
+                size={28}
+              />
+
+              <input
+                type={passwordIsVisible ? "text" : "password"}
+                placeholder="Mot de passe"
+                onChange={({ target }) => setPassword(target.value)}
+                value={password}
+              />
+
+              <a
+                className={styles.passwordVisibilityIcon}
+                onClick={() => setPasswordIsVisible(!passwordIsVisible)}
+              >
+                {passwordIsVisible
+                  ? <AiOutlineEye
+                    size={28}
+                  />
+                  : <AiOutlineEyeInvisible
+                    size={28}
+                  />
+                }
+              </a>
+            </div>
+
+            <PasswordStrengthBar
+              style={{
+                display: "none"
+              }}
+              minLength={8}
+              password={password}
+              onChangeScore={(score) => {
+                setPasswordScore(score);
+              }}
+            />
+
+            <button
+              disabled={loading}
+              type="submit"
+            >
+              {loading ? "Chargement..." : "S'inscrire"}
+            </button>
+
+            {errorMessage &&
           <span
             className={styles.errorMessage}
           >
             {errorMessage}
           </span>
-          }
-        </form>
+            }
+          </form>
 
-        <nav
-          className={styles.navbar}
-        >
-          <ul>
-            <li>
-              <Link href="/login" passHref>
-                <AuthUserSelectCard>
+          <nav
+            className={styles.navbar}
+          >
+            <ul>
+              <li>
+                <Link href="/login" passHref>
+                  <AuthUserSelectCard>
                 Connexion
-                </AuthUserSelectCard>
-              </Link>
-            </li>
-            <li>
-              <AuthUserSelectCard
-                isSelected={true}
-              >
+                  </AuthUserSelectCard>
+                </Link>
+              </li>
+              <li>
+                <AuthUserSelectCard
+                  isSelected={true}
+                >
               Inscription
-              </AuthUserSelectCard>
-            </li>
-          </ul>
-        </nav>
+                </AuthUserSelectCard>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 }

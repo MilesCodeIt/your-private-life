@@ -7,6 +7,7 @@ import { useDialog } from "@/components/Dialog";
 import { updateLevelState } from "@/utils/web/useUserLevels";
 
 import styles from "@/styles/levels/introduction.module.scss";
+import { NextSeo } from "next-seo";
 
 const mails = [
   {
@@ -251,9 +252,9 @@ export default function IntroductionLevel () {
 
   return (
     <Fragment>
-      <Head>
-        <title>Mes mails - Your Private Life</title>
-      </Head>
+      <NextSeo
+        title="Mes mails"
+      />
 
       <BrowserLayout
         urlValue="https://my.randmail.com/inbox"

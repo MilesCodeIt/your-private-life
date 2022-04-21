@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Head from "next/head";
+import { NextSeo } from "next-seo";
 import Image from "next/image";
 
 import { Fragment, useState } from "react";
@@ -160,18 +160,18 @@ export default function AmiDeLongueDateLevel () {
 
   if (!user || !user.username) return (
     <Fragment>
-      <Head>
-        <title>Chargement... - Your Private Life</title>
-      </Head>
+      <NextSeo
+        title="Chargement..."
+      />
       <p>Chargement...</p>
     </Fragment>
   );
 
   return (
     <Fragment>
-      <Head>
-        <title>Discordo - Your Private Life</title>
-      </Head>
+      <NextSeo
+        title="Discordo"
+      />
       <div className={styles.container}>
         <div className={styles.windowTopBar}>
           <h2>Discordo</h2>
