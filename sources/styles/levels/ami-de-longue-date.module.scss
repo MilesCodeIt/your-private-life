@@ -57,6 +57,22 @@
   }
 }
 
+.onlineDot {
+  height: 12px;
+  width: 12px;
+
+  background-color: #3ba55d;
+  border-radius: 50%;
+}
+
+.offlineDot {
+  height: 12px;
+  width: 12px;
+
+  background-color: #757575;
+  border-radius: 50%;
+}
+
 .messagesContainer {
   background-color: #373a3e;
   width: 100%;
@@ -73,14 +89,6 @@
 
     user-select: none;
     box-shadow: #2c2f33 0 2px 4px 0;
-
-    & span {
-      height: 12px;
-      width: 12px;
-
-      background-color: #3ba55d;
-      border-radius: 50%;
-    }
   }
 
   &__main {
@@ -161,5 +169,33 @@
 
   &:hover {
     background-color: #3f4449;
+  }
+}
+
+.friend_item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 6px;
+
+  padding: 0.75em 1.25em;
+  margin: 0.5em;
+  border-radius: 4px;
+
+  cursor: pointer;
+  &:hover {
+    background-color: #3f4449;
+  }
+
+  &__selected {
+    background-color: #35383b;
+  }
+
+  & div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255, 255, 255, 0.727);
   }
 }
