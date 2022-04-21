@@ -60,7 +60,7 @@ export default function User () {
 
         {parsedLevels.finished.map(level => (
           <div key={level.id}>
-            <h3>{level.id}</h3>
+            <p>- {level.id}</p>
           </div>
         ))}
       </div>

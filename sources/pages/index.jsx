@@ -19,7 +19,7 @@ export default function Home () {
    * Affichage d'un loader si les données
    * de l'utilisateur sont toujours en chargement.
    */
-  if (loading) return (
+  if (loading || !levels) return (
     <p>
       Chargement...
     </p>
