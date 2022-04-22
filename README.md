@@ -18,6 +18,7 @@ L'équipe est composée de quatres personnes :
 
 - [Code-source](./sources)
 - [Documentation](./doc/README.md)
+- [Présentation du projet au format .ODT](./presentation.odt)
 
 ## Remerciements
 
