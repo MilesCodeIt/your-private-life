@@ -18,10 +18,30 @@ const SeoProps = {
     description: projectDescription
   },
 
+  twitter: {
+    cardType: "summary_large_image"
+  },
+
   additionalMetaTags: [
     {
       name: "theme-color",
       content: "#000000"
+    }
+  ],
+
+  additionalLinkTags: [
+    {
+      rel: "apple-touch-icon",
+      href: "/apple-touch-icon.png",
+      sizes: "180x180"
+    },
+    {
+      rel: "manifest",
+      href: "/manifest.json"
+    },
+    {
+      rel: "icon",
+      href: "/favicon.ico"
     }
   ]
 };
