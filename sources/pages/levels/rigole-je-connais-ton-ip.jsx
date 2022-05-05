@@ -2,16 +2,18 @@ import Link from "next/link";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 
 import { IoMdClose } from "react-icons/io";
 import styles from "@/styles/levels/ami-de-longue-date.module.scss";
 
 import useUser from "@/utils/web/useUser";
 
+
+const friend_name = "[Faze] XxX_InconnuDu87_XxX";
 const friends = [
   {
-    name: "spwnh00k",
+    name: friend_name,
     online: true
   },
   {
@@ -127,7 +129,8 @@ const FriendItem = ({
 
 export default function AmiDeLongueDateLevel () {
   const { user } = useUser();
-  const friend_name = "spwnh00k";
+
+  const [isWriting, setWriting] = useState(false);
 
   /** Index de `story_line`. */
   const [progressionInMessages, setProgressionInMessages] = useState(0);
@@ -138,24 +141,38 @@ export default function AmiDeLongueDateLevel () {
     }
   ]);
 
-  const updateMessageWithResponse = (choice_index) => {
+  const updateMessageWithResponse = async (choice_index) => {
     const messageToSend = story_line[progressionInMessages].choices[choice_index];
     const reply = story_line[messageToSend.response_index];
 
-    setMessages([
+    const messagesToUpdate = [
       ...messages,
       {
         author: user.username,
         content: messageToSend.message,
         data: messageToSend.data
-      },
-      {
-        author: friend_name,
-        content: reply.response
       }
-    ]);
+    ];
+
+    setMessages(messagesToUpdate);
 
     setProgressionInMessages(messageToSend.response_index);
+    setWriting(true);
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        setMessages([
+          ...messagesToUpdate,
+          {
+            author: friend_name,
+            content: reply.response
+          }
+        ]);
+
+        setWriting(false);
+        resolve();
+      }, 1000);
+    });
   };
 
   if (!user || !user.username) return (
@@ -170,11 +187,11 @@ export default function AmiDeLongueDateLevel () {
   return (
     <Fragment>
       <NextSeo
-        title="Discordo"
+        title="Discodo"
       />
       <div className={styles.container}>
         <div className={styles.windowTopBar}>
-          <h2>Discordo</h2>
+          <h2>Discodo</h2>
 
           <Link href="/" passHref>
             <a>
@@ -211,6 +228,10 @@ export default function AmiDeLongueDateLevel () {
                   />
                 ))}
               </div>
+
+              {isWriting && (
+                <p>Est en train d&apos;écrire...</p>
+              )}
 
               <div className={styles.messagesContainer__main_inputContainer}>
                 {story_line[progressionInMessages].choices.map((choice, index) => (

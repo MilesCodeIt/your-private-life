@@ -13,9 +13,9 @@ const raw_levels = [
     id: "introduction"
   },
   {
-    name: "Ami de longue date",
+    name: "Rigole je connais ton IP",
     description: "Êtes-vous sûr de savoir à qui vous parlez sur les réseaux ?",
-    id: "ami-de-longue-date"
+    id: "rigole-je-connais-ton-ip"
   }
 ];
 

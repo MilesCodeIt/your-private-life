@@ -75,6 +75,10 @@ export default function User () {
             </div>
           ))}
         </div>
+
+        <div className={styles.window}>
+          <h2>Succès</h2>
+        </div>
       </div>
     </Fragment>
   );
