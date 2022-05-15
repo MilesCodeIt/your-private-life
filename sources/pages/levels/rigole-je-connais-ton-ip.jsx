@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Fragment, useState, useEffect } from "react";
 
 import { IoMdClose } from "react-icons/io";
-import styles from "@/styles/levels/ami-de-longue-date.module.scss";
+import styles from "@/styles/levels/rigole-je-connais-ton-ip.module.scss";
 
 import useUser from "@/utils/web/useUser";
 
@@ -76,7 +76,7 @@ const story_line = [
   { // `response_index`: 4
     response: "J'ai un truc à te demander !",
     choices: [
-      { }
+
     ]
   }
 ];
@@ -130,7 +130,7 @@ const FriendItem = ({
 export default function AmiDeLongueDateLevel () {
   const { user } = useUser();
 
-  const [isWriting, setWriting] = useState(false);
+  const [isWriting, setWriting] = useState(true);
 
   /** Index de `story_line`. */
   const [progressionInMessages, setProgressionInMessages] = useState(0);
@@ -230,7 +230,7 @@ export default function AmiDeLongueDateLevel () {
               </div>
 
               {isWriting && (
-                <p>Est en train d&apos;écrire...</p>
+                <p>{friend_name} est en train d&apos;écrire...</p>
               )}
 
               <div className={styles.messagesContainer__main_inputContainer}>

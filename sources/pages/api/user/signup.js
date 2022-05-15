@@ -2,6 +2,7 @@ import connectDatabase from "@/utils/api/connectDatabase";
 import User from "@/models/User";
 
 import bcrypt from "bcryptjs";
+import got from "got";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -13,10 +14,30 @@ export default async function handler (req, res) {
     message: "Méthode inexistante"
   });
 
-  const { password, username } = req.body;
+  const { password, username, captcha } = req.body;
   if (!password || !username) return res.status(400).json({
     success: false,
     message: "Un champ est manquant"
+  });
+
+  if (!captcha) return res.status(400).json({
+    success: false,
+    message: "Le captcha est manquant"
+  });
+
+  const captcha_response = await got.post(
+    "https://hcaptcha.com/siteverify",
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+      },
+      body: `response=${captcha}&secret=${process.env.HCAPTCHA_SECRET_KEY}`
+    }
+  ).json();
+
+  if (!captcha_response.success) return res.status(400).json({
+    success: false,
+    message: "Le captcha est invalide"
   });
 
   // Connexion à la base de données.

@@ -95,8 +95,11 @@
     position: relative;
     height: calc(100% - 42px);
 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     &_inputContainer {
-      position: absolute;
       bottom: 0; left: 0; right: 0;
 
       border-radius: 12px;

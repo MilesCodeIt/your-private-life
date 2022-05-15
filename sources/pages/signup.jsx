@@ -13,6 +13,7 @@ import UserAvatar from "@/components/UserAvatar";
 import AuthUserSelectCard from "@/components/AuthUserSelectCard";
 
 import PasswordStrengthBar from "react-password-strength-bar";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function Signup () {
   const router = useRouter();
@@ -24,6 +25,8 @@ export default function Signup () {
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const [captchaToken, setCaptchaToken] = useState("");
+
   /** @param {import("react").FormEvent} event */
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,11 +35,18 @@ export default function Signup () {
     setErrorMessage(null);
     setLoading(true);
 
+    if (!captchaToken) {
+      setErrorMessage("Le captcha est invalide ou vide.");
+      setLoading(false);
+      return;
+    }
+
     try {
       await ky.post("/api/user/signup", {
         json: {
           username,
-          password
+          password,
+          captcha: captchaToken
         }
       }).json();
 
@@ -68,10 +78,8 @@ export default function Signup () {
             firstLetter="I"
           />
 
-          <h2
-            className={styles.formTitle}
-          >
-        Inscription
+          <h2 className={styles.formTitle}>
+            Inscription
           </h2>
 
           <form
@@ -144,6 +152,11 @@ export default function Signup () {
               }}
             />
 
+            <HCaptcha
+              sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
+              onVerify={token => setCaptchaToken(token)}
+            />
+
             <button
               disabled={loading}
               type="submit"
@@ -152,22 +165,18 @@ export default function Signup () {
             </button>
 
             {errorMessage &&
-          <span
-            className={styles.errorMessage}
-          >
-            {errorMessage}
-          </span>
+              <span className={styles.errorMessage}>
+                {errorMessage}
+              </span>
             }
           </form>
 
-          <nav
-            className={styles.navbar}
-          >
+          <nav className={styles.navbar}>
             <ul>
               <li>
                 <Link href="/login" passHref>
                   <AuthUserSelectCard>
-                Connexion
+                    Connexion
                   </AuthUserSelectCard>
                 </Link>
               </li>
@@ -175,7 +184,7 @@ export default function Signup () {
                 <AuthUserSelectCard
                   isSelected={true}
                 >
-              Inscription
+                  Inscription
                 </AuthUserSelectCard>
               </li>
             </ul>
