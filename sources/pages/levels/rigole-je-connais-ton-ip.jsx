@@ -2,7 +2,7 @@ import Link from "next/link";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useRef } from "react";
 
 import { IoMdClose } from "react-icons/io";
 import styles from "@/styles/levels/rigole-je-connais-ton-ip.module.scss";
@@ -76,6 +76,14 @@ const story_line = [
   { // `response_index`: 4
     response: "J'ai un truc à te demander !",
     choices: [
+      { message: "Vzy", response_index: 5 },
+      { message: "Ouais tu veux quoi ?", response_index: 5 }
+    ]
+  },
+
+  { // `response_index`: 4
+    response: "https://gogole.com.",
+    choices: [
 
     ]
   }
@@ -129,8 +137,9 @@ const FriendItem = ({
 
 export default function AmiDeLongueDateLevel () {
   const { user } = useUser();
+  const chatboxRef = useRef();
 
-  const [isWriting, setWriting] = useState(true);
+  const [isWriting, setWriting] = useState(false);
 
   /** Index de `story_line`. */
   const [progressionInMessages, setProgressionInMessages] = useState(0);
@@ -142,6 +151,10 @@ export default function AmiDeLongueDateLevel () {
   ]);
 
   const updateMessageWithResponse = async (choice_index) => {
+    if (!chatboxRef.current) return;
+    /** @type {HTMLDivElement} */
+    const chatbox = chatboxRef.current;
+
     const messageToSend = story_line[progressionInMessages].choices[choice_index];
     const reply = story_line[messageToSend.response_index];
 
@@ -155,6 +168,7 @@ export default function AmiDeLongueDateLevel () {
     ];
 
     setMessages(messagesToUpdate);
+    chatbox.scrollTop = chatbox.scrollHeight;
 
     setProgressionInMessages(messageToSend.response_index);
     setWriting(true);
@@ -168,6 +182,8 @@ export default function AmiDeLongueDateLevel () {
             content: reply.response
           }
         ]);
+
+        chatbox.scrollTop = chatbox.scrollHeight;
 
         setWriting(false);
         resolve();
@@ -218,7 +234,7 @@ export default function AmiDeLongueDateLevel () {
             </header>
 
             <main className={styles.messagesContainer__main}>
-              <div className={styles.messagesContainer__main_messages}>
+              <div ref={chatboxRef} className={styles.messagesContainer__main_messages}>
                 {messages.map((message, index) => (
                   <MessageItem
                     author={message.author}
@@ -229,20 +245,23 @@ export default function AmiDeLongueDateLevel () {
                 ))}
               </div>
 
-              {isWriting && (
-                <p>{friend_name} est en train d&apos;écrire...</p>
-              )}
+              <div>
+                {isWriting && (
+                  <p>{friend_name} est en train d&apos;écrire...</p>
+                )}
 
-              <div className={styles.messagesContainer__main_inputContainer}>
-                {story_line[progressionInMessages].choices.map((choice, index) => (
-                  <button
-                    onClick={() => updateMessageWithResponse(index)}
-                    key={index}
-                  >
-                    {choice.message}
-                  </button>
-                ))}
+                <div className={styles.messagesContainer__main_inputContainer}>
+                  {!isWriting && story_line[progressionInMessages].choices.map((choice, index) => (
+                    <button
+                      onClick={() => updateMessageWithResponse(index)}
+                      key={index}
+                    >
+                      {choice.message}
+                    </button>
+                  ))}
+                </div>
               </div>
+
             </main>
           </div>
         </div>
