@@ -82,7 +82,9 @@ const story_line = [
   },
 
   { // `response_index`: 4
-    response: "https://gogole.com.",
+    response: <>
+      J'aurais besoin de toi pour récupérer mon compte Rito Games <br /> <a style={{ color: "#8ab4f8" }} href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noreferrer">https://www.ritogames.link/recover?token=4123894r2365784yqgyeufyw7</a>
+    </>,
     choices: [
 
     ]
@@ -269,3 +271,11 @@ export default function AmiDeLongueDateLevel () {
     </Fragment>
   );
 }
+
+const RitoGamesWindow = ({ closeWindow }) => {
+
+  return (
+
+
+  );
+};
