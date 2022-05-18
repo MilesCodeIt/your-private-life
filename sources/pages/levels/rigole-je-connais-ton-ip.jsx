@@ -3,12 +3,12 @@ import { NextSeo } from "next-seo";
 import Image from "next/image";
 
 import { Fragment, useState, useRef } from "react";
+import Window from "@/components/Window";
 
 import { IoMdClose } from "react-icons/io";
 import styles from "@/styles/levels/rigole-je-connais-ton-ip.module.scss";
 
 import useUser from "@/utils/web/useUser";
-
 
 const friend_name = "[Faze] XxX_InconnuDu87_XxX";
 const friends = [
@@ -35,59 +35,6 @@ const friends = [
   {
     name: "Invertime",
     online: false
-  }
-];
-
-/**
- * Chaque objet est une réponse qui contient les choix.
- * Quand un choix est fait, on passe à la réponse `response_index`.
- */
-const story_line = [
-  { // `response_index`: 0
-    response: "Salut !",
-    choices: [
-      { message: "Yo !", response_index: 1 },
-      { message: "Comment ça va ?", response_index: 2 },
-      { message: "Au revoir.", data: "{AU_REVOIR_GIF}", response_index: 3 }
-    ]
-  },
-
-  { // `response_index`: 1
-    response: "Comment ça va depuis ?",
-    choices: [
-      { message: "Tout va bien", response_index: 4 },
-      { message: "Tranquille, trkl.", response_index: 4 }
-    ]
-  },
-  { // `response_index`: 2
-    response: "Bien et toi depuis ?",
-    choices: [
-      { message: "Ça va, tout va bien", response_index: 4 },
-      { message: "Tranquille, trkl.", response_index: 4 }
-    ]
-  },
-  { // `response_index`: 3
-    response: "...",
-    choices: [
-      { message: "Comment ça va ?", response_index: 2 }
-    ]
-  },
-
-  { // `response_index`: 4
-    response: "J'ai un truc à te demander !",
-    choices: [
-      { message: "Vzy", response_index: 5 },
-      { message: "Ouais tu veux quoi ?", response_index: 5 }
-    ]
-  },
-
-  { // `response_index`: 4
-    response: <>
-      J'aurais besoin de toi pour récupérer mon compte Rito Games <br /> <a style={{ color: "#8ab4f8" }} href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noreferrer">https://www.ritogames.link/recover?token=4123894r2365784yqgyeufyw7</a>
-    </>,
-    choices: [
-
-    ]
   }
 ];
 
@@ -137,11 +84,70 @@ const FriendItem = ({
   </div>
 );
 
-export default function AmiDeLongueDateLevel () {
+export default function RigoleJeConnaisTonIpLevel () {
+  /**
+ * Chaque objet est une réponse qui contient les choix.
+ * Quand un choix est fait, on passe à la réponse `response_index`.
+ */
+  const story_line = [
+    { // `response_index`: 0
+      response: "Salut !",
+      choices: [
+        { message: "Yo !", response_index: 1 },
+        { message: "Comment ça va ?", response_index: 2 },
+        { message: "Au revoir.", data: "{AU_REVOIR_GIF}", response_index: 3 }
+      ]
+    },
+
+    { // `response_index`: 1
+      response: "Comment ça va depuis ?",
+      choices: [
+        { message: "Tout va bien", response_index: 4 },
+        { message: "Tranquille, trkl.", response_index: 4 }
+      ]
+    },
+    { // `response_index`: 2
+      response: "Bien et toi depuis ?",
+      choices: [
+        { message: "Ça va, tout va bien", response_index: 4 },
+        { message: "Tranquille, trkl.", response_index: 4 }
+      ]
+    },
+    { // `response_index`: 3
+      response: "...",
+      choices: [
+        { message: "Comment ça va ?", response_index: 2 }
+      ]
+    },
+
+    { // `response_index`: 4
+      response: "J'ai un truc à te demander !",
+      choices: [
+        { message: "Vzy", response_index: 5 },
+        { message: "Ouais tu veux quoi ?", response_index: 5 }
+      ]
+    },
+
+    { // `response_index`: 4
+      response: <>
+      J&apos;aurais besoin de toi pour récupérer mon compte Rito Games <br /> <a
+          onClick={() => setIsWindowOpened(true)}
+          style={{ color: "#8ab4f8" }}
+          target="_blank"
+          rel="noreferrer"
+        > https://www.ritogames.link/recover?token=4123894r2365784yqgyeufyw7 </a>
+      </>,
+      choices: [
+
+      ]
+    }
+  ];
+
   const { user } = useUser();
   const chatboxRef = useRef();
 
   const [isWriting, setWriting] = useState(false);
+  const [isWindowOpened, setIsWindowOpened] = useState(false);
 
   /** Index de `story_line`. */
   const [progressionInMessages, setProgressionInMessages] = useState(0);
@@ -207,6 +213,13 @@ export default function AmiDeLongueDateLevel () {
       <NextSeo
         title="Discodo"
       />
+
+      {isWindowOpened && (
+        <RitoGamesWindow
+          closeWindow={() => setIsWindowOpened(false)}
+        />
+      )}
+
       <div className={styles.container}>
         <div className={styles.windowTopBar}>
           <h2>Discodo</h2>
@@ -273,9 +286,9 @@ export default function AmiDeLongueDateLevel () {
 }
 
 const RitoGamesWindow = ({ closeWindow }) => {
-
   return (
-
-
+    <Window closeWindow={closeWindow}>
+      <p>Hello World</p>
+    </Window>
   );
 };
