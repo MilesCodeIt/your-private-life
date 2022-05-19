@@ -39,11 +39,6 @@ const friends = [
   }
 ];
 
-const getIP = async () => {
-  const res = await ky("https://api.ipify.org/?format=json").json();
-  return res.ip;
-};
-
 const MessageItem = ({
   author,
   content,
@@ -158,13 +153,11 @@ export default function RigoleJeConnaisTonIpLevel () {
   const [isWriting, setWriting] = useState(false);
   const [isWindowOpened, setIsWindowOpened] = useState(false);
 
-
-
   const [ip, setIp] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const ip_fetched = await getIP();
+      const ip_fetched = await ky("https://ifconfig.me/ip").text();
       setIp(ip_fetched);
     })();
   }, []);
@@ -307,7 +300,7 @@ export default function RigoleJeConnaisTonIpLevel () {
 
 const RitoGamesWindow = ({ closeWindow }) => {
   return (
-    <Window closeWindow={closeWindow} width='500px'>
+    <Window closeWindow={closeWindow} width="500px">
       <h1>MOT DE PASSE OUBLIÉ</h1>
     </Window>
   );
