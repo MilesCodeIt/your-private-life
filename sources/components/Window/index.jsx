@@ -4,7 +4,7 @@ import { CgClose } from "react-icons/cg";
 
 import { useRef } from "react";
 
-export default function Window ({ closeWindow, children }) {
+export default function Window ({ closeWindow, children, width="300px", minHeight="100px" }) {
   const windowRef = useRef(null);
 
   const mouseMoveEvent = (mouseEvent) => {
@@ -42,6 +42,7 @@ export default function Window ({ closeWindow, children }) {
     <div
       className={styles.windowContainer}
       ref={windowRef}
+      style={{ minHeight: minHeight, width: width }}
     >
       <nav
         onMouseDown={onMouseDownHandler}

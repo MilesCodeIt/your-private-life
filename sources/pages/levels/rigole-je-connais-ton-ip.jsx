@@ -2,13 +2,14 @@ import Link from "next/link";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState, useRef, useEffect } from "react";
 import Window from "@/components/Window";
 
 import { IoMdClose } from "react-icons/io";
 import styles from "@/styles/levels/rigole-je-connais-ton-ip.module.scss";
 
 import useUser from "@/utils/web/useUser";
+import ky from "ky";
 
 const friend_name = "[Faze] XxX_InconnuDu87_XxX";
 const friends = [
@@ -37,6 +38,11 @@ const friends = [
     online: false
   }
 ];
+
+const getIP = async () => {
+  const res = await ky("https://api.ipify.org/?format=json").json();
+  return res.ip;
+};
 
 const MessageItem = ({
   author,
@@ -86,9 +92,9 @@ const FriendItem = ({
 
 export default function RigoleJeConnaisTonIpLevel () {
   /**
- * Chaque objet est une réponse qui contient les choix.
- * Quand un choix est fait, on passe à la réponse `response_index`.
- */
+   * Chaque objet est une réponse qui contient les choix.
+   * Quand un choix est fait, on passe à la réponse `response_index`.
+   */
   const story_line = [
     { // `response_index`: 0
       response: "Salut !",
@@ -131,7 +137,10 @@ export default function RigoleJeConnaisTonIpLevel () {
     { // `response_index`: 4
       response: <>
       J&apos;aurais besoin de toi pour récupérer mon compte Rito Games <br /> <a
-          onClick={() => setIsWindowOpened(true)}
+          onClick={() => {
+            console.log(ip);
+            setIsWindowOpened(true);
+          }}
           style={{ color: "#8ab4f8" }}
           target="_blank"
           rel="noreferrer"
@@ -148,6 +157,17 @@ export default function RigoleJeConnaisTonIpLevel () {
 
   const [isWriting, setWriting] = useState(false);
   const [isWindowOpened, setIsWindowOpened] = useState(false);
+
+
+
+  const [ip, setIp] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const ip_fetched = await getIP();
+      setIp(ip_fetched);
+    })();
+  }, []);
 
   /** Index de `story_line`. */
   const [progressionInMessages, setProgressionInMessages] = useState(0);
@@ -287,8 +307,8 @@ export default function RigoleJeConnaisTonIpLevel () {
 
 const RitoGamesWindow = ({ closeWindow }) => {
   return (
-    <Window closeWindow={closeWindow}>
-      <p>Hello World</p>
+    <Window closeWindow={closeWindow} width='500px'>
+      <h1>MOT DE PASSE OUBLIÉ</h1>
     </Window>
   );
 };
