@@ -90,6 +90,16 @@ export default function RigoleJeConnaisTonIpLevel () {
    * Chaque objet est une réponse qui contient les choix.
    * Quand un choix est fait, on passe à la réponse `response_index`.
    */
+
+  const [ip, setIp] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const ip_fetched = await ky("https://ifconfig.me/ip").text();
+      setIp(ip_fetched);
+    })();
+  }, []);
+
   const story_line = [
     { // `response_index`: 0
       response: "Salut !",
@@ -101,14 +111,14 @@ export default function RigoleJeConnaisTonIpLevel () {
     },
 
     { // `response_index`: 1
-      response: "Comment ça va depuis ?",
+      response: "Comment ça va ?",
       choices: [
         { message: "Tout va bien", response_index: 4 },
         { message: "Tranquille, trkl.", response_index: 4 }
       ]
     },
     { // `response_index`: 2
-      response: "Bien et toi depuis ?",
+      response: "Bien et toi ?",
       choices: [
         { message: "Ça va, tout va bien", response_index: 4 },
         { message: "Tranquille, trkl.", response_index: 4 }
@@ -129,18 +139,27 @@ export default function RigoleJeConnaisTonIpLevel () {
       ]
     },
 
-    { // `response_index`: 4
+    { // `response_index`: 5
       response: <>
-      J&apos;aurais besoin de toi pour récupérer mon compte Rito Games <br /> <a
+      J&apos;aurais besoin de toi pour récupérer mon compte Rito Games <br />
+      Mets tes identifiants et tu devrais recevoir mon mot de passe <br />
+      Je te donnerais quelque chose en retour <br />
+        <a
           onClick={() => {
-            console.log(ip);
             setIsWindowOpened(true);
           }}
           style={{ color: "#8ab4f8" }}
           target="_blank"
           rel="noreferrer"
-        > https://www.ritogames.link/recover?token=4123894r2365784yqgyeufyw7 </a>
+        > https://www.ritogames.ru/recover?token=4123894r2365784yqgyeufyw7 </a>
       </>,
+      choices: [
+
+      ]
+    },
+
+    { // `response_index`: 6
+      response: <></>,
       choices: [
 
       ]
@@ -152,15 +171,7 @@ export default function RigoleJeConnaisTonIpLevel () {
 
   const [isWriting, setWriting] = useState(false);
   const [isWindowOpened, setIsWindowOpened] = useState(false);
-
-  const [ip, setIp] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      const ip_fetched = await ky("https://ifconfig.me/ip").text();
-      setIp(ip_fetched);
-    })();
-  }, []);
+  const [isPawned, setIsPawned] = useState(false);
 
   /** Index de `story_line`. */
   const [progressionInMessages, setProgressionInMessages] = useState(0);
@@ -229,7 +240,33 @@ export default function RigoleJeConnaisTonIpLevel () {
 
       {isWindowOpened && (
         <RitoGamesWindow
-          closeWindow={() => setIsWindowOpened(false)}
+          closeWindow={() => {
+            setIsWindowOpened(false);
+
+            if(!isPawned){
+              setIsPawned(true);
+              setProgressionInMessages(6);
+              const chatbox = chatboxRef.current;
+              setWriting(true);
+              new Promise(resolve => {
+                setTimeout(() => {
+                  setMessages([
+                    ...messages,
+                    {
+                      author: friend_name,
+                      content: <>
+                      ahah pwnd,
+                      your ip is {ip}
+                      </>
+                    }
+                  ]);
+                  chatbox.scrollTop = chatbox.scrollHeight;
+                  setWriting(false);
+                  resolve();
+                }, 1000);
+              });
+            }
+          }}
         />
       )}
 
@@ -302,6 +339,14 @@ const RitoGamesWindow = ({ closeWindow }) => {
   return (
     <Window closeWindow={closeWindow} width="500px">
       <h1>MOT DE PASSE OUBLIÉ</h1>
+      <h3>Pour récuperer votre mdp, rentrez votre adresse mail</h3>
+      <hr />
+      <br />
+      <form>
+        <span>Mail: </span>
+        <input type="email" name="mail" id="mail" />
+        <input type="submit" value="recuperer votre mdp" />
+      </form>
     </Window>
   );
 };
