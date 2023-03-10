@@ -13,18 +13,18 @@ export default function AboutWindow ({ closeWindow }) {
 
       <h3>But du projet</h3>
       <p>
-        Prévention sur les risques liés aux cyberattaques.
+        Prévention sur les risques liés aux cyber-attaques.
       </p>
 
-      <div
+      {/* <div
         style={{
           background: "#000",
           height: "64px",
           width: "48px"
         }}
-      >
+      > */}
 
-      </div>
+      {/* </div> */}
     </Window>
   );
 }
