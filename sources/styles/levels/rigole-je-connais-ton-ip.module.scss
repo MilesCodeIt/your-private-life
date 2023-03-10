@@ -99,11 +99,20 @@
     flex-direction: column;
     justify-content: space-between;
 
+    &_input {
+      padding-inline: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      color: #d4d4d4;
+    }
+
     &_inputContainer {
       bottom: 0; left: 0; right: 0;
 
       border-radius: 12px;
-      margin: 0 24px 24px 24px;
+      margin-bottom: 24px;
 
       padding: 18px;
 

@@ -69,37 +69,6 @@ export default function Window ({ closeWindow, children, width="300px", minHeigh
     };
   }, []);
 
-  // const mouseMoveEvent = (mouseEvent) => {
-  //   if (!windowRef.current) return;
-
-  //   mouseEvent.preventDefault();
-  //   mouseEvent.stopPropagation();
-
-  //   const screenWidth = document.body.clientWidth;
-  //   const screenHeight = document.body.clientHeight;
-
-  //   const mouseX = mouseEvent.clientX;
-  //   const mouseY = mouseEvent.clientY;
-
-  //   const windowTop = (mouseY + windowRef.current.clientHeight) < screenHeight
-  //     ? mouseY + (windowRef.current.clientHeight / 2)
-  //     : screenHeight - windowRef.current.clientHeight / 2;
-
-  //   const windowLeft = (mouseX + windowRef.current.clientWidth / 2) < screenWidth
-  //     ? mouseX
-  //     : screenWidth - windowRef.current.clientWidth / 2;
-
-  //   windowRef.current.style.top = (mouseY >= 0 ? windowTop : windowRef.current.clientHeight / 2) + "px";
-  //   windowRef.current.style.left = (mouseX - windowRef.current.clientWidth / 2 >= 0 ? windowLeft : windowRef.current.clientWidth / 2) + "px";
-  // };
-
-  // const onMouseDownHandler = () => {
-  //   document.addEventListener("mousemove", mouseMoveEvent);
-  //   document.addEventListener("mouseup", () => {
-  //     document.removeEventListener("mousemove", mouseMoveEvent);
-  //   });
-  // };
-
   return (
     <div
       className={styles.windowContainer}
@@ -107,7 +76,6 @@ export default function Window ({ closeWindow, children, width="300px", minHeigh
       style={{ minHeight: minHeight, width: width }}
     >
       <nav
-        // onMouseDown={dragMouseDown}
         ref={navbarRef}
         className={styles.windowNavbar}
       >

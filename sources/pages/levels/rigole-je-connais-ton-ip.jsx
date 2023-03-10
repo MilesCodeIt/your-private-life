@@ -102,7 +102,7 @@ export default function RigoleJeConnaisTonIpLevel () {
 
   const story_line = [
     { // `response_index`: 0
-      response: "Salut !",
+      response: "Salu !",
       choices: [
         { message: "Yo !", response_index: 1 },
         { message: "Comment ça va ?", response_index: 2 },
@@ -111,28 +111,28 @@ export default function RigoleJeConnaisTonIpLevel () {
     },
 
     { // `response_index`: 1
-      response: "Comment ça va ?",
+      response: "Comment sa va ?",
       choices: [
         { message: "Tout va bien", response_index: 4 },
         { message: "Tranquille, trkl.", response_index: 4 }
       ]
     },
     { // `response_index`: 2
-      response: "Bien et toi ?",
+      response: "Bien etoi ?",
       choices: [
         { message: "Ça va, tout va bien", response_index: 4 },
         { message: "Tranquille, trkl.", response_index: 4 }
       ]
     },
     { // `response_index`: 3
-      response: "...",
+      response: "eu...",
       choices: [
         { message: "Comment ça va ?", response_index: 2 }
       ]
     },
 
     { // `response_index`: 4
-      response: "J'ai un truc à te demander !",
+      response: "J'ai qqch a te demandé !",
       choices: [
         { message: "Vzy", response_index: 5 },
         { message: "Ouais tu veux quoi ?", response_index: 5 }
@@ -141,16 +141,12 @@ export default function RigoleJeConnaisTonIpLevel () {
 
     { // `response_index`: 5
       response: <>
-      J&apos;aurais besoin de toi pour récupérer mon compte Rito Games <br />
-      Mets tes identifiants et tu devrais recevoir mon mot de passe <br />
-      Je te donnerais quelque chose en retour <br />
+      J&apos;ai besoin de toi pour récupéré mon compt Rito Games <br />
+      Met tes identifian et tu doi recevoir mon mot de passe. <br />
+      Je te donnerai quelque chause en retour <br />
         <a
-          onClick={() => {
-            setIsWindowOpened(true);
-          }}
-          style={{ color: "#8ab4f8" }}
-          target="_blank"
-          rel="noreferrer"
+          onClick={() => setIsWindowOpened(true)}
+          style={{ color: "#8ab4f8", cursor: "pointer" }}
         > https://www.ritogames.ru/recover?token=4123894r2365784yqgyeufyw7 </a>
       </>,
       choices: [
@@ -310,7 +306,7 @@ export default function RigoleJeConnaisTonIpLevel () {
                 ))}
               </div>
 
-              <div>
+              <div className={styles.messagesContainer__main_input}>
                 {isWriting && (
                   <p>{friend_name} est en train d&apos;écrire...</p>
                 )}
@@ -338,14 +334,18 @@ export default function RigoleJeConnaisTonIpLevel () {
 const RitoGamesWindow = ({ closeWindow }) => {
   return (
     <Window closeWindow={closeWindow} width="500px">
-      <h1>MOT DE PASSE OUBLIÉ</h1>
-      <h3>Pour récuperer votre mdp, rentrez votre adresse mail</h3>
+      <h1>Rito Games</h1>
+      <h2>Demande de récupération de mot de passe</h2>
+      <p>Pour retrouver le mot de passe de <b>{friend_name}</b>, veuillez rentrer votre adresse mail.</p>
       <hr />
       <br />
-      <form>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        closeWindow();
+      }}>
         <span>Mail: </span>
-        <input type="email" name="mail" id="mail" />
-        <input type="submit" value="recuperer votre mdp" />
+        <input type="email" name="mail" placeholder="Votre adresse e-mail" />
+        <button type="submit">Récupérer le mot de passe</button>
       </form>
     </Window>
   );
